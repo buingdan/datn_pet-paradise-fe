@@ -9,6 +9,8 @@ const initialState = {
   isAuthenticated: false,
   user_name: "",
   email: "",
+  user: {},
+  roles: [],
   accessToken: "",
   refreshToken: "",
 };
@@ -21,6 +23,8 @@ const authReducer = (state = initialState, { type, payload }) => {
         isAuthenticated: true,
         user_name: payload.user_name,
         email: payload.email,
+        roles: payload.user.roles,
+        user: payload.user,
         accessToken: payload.access_token,
         refreshToken: payload.refresh_token,
       };

@@ -45,7 +45,7 @@ function DashboardPage() {
   const err = useSelector((state) => state.commonReducer.error);
   
   useEffect(() => {
-    dispatch(login("danbui@gmail.com","12345"))
+    dispatch(login("admin@gmail.com","12345"))
     return () => {
       dispatch(clearAuthState());
     };

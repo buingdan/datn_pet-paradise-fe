@@ -1,0 +1,243 @@
+#footer {
+    margin-top: 200px;
+    height: 45.972vw;
+    width: 100%;
+    padding: 7.639vw 6.944vw 0 6.944vw;
+    border-top: 0.139vw solid #f9a529;
+  }
+  
+  #footer .content {
+    height: 35.139vw;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  #footer .content .infor {
+    width: 26.042vw;
+  }
+  
+  #footer .content .infor .logo {
+    width: 100%;
+    height: 12.639vw;
+    margin-bottom: 3.611vw;
+  }
+  
+  #footer .content .infor .logo img {
+    height: 7.083vw;
+    margin-bottom: 1.875vw;
+    width: 115px;
+  }
+  
+  #footer .content .infor .logo p {
+    color: #f9a529;
+    font-size: 1.389vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  
+  #footer .content .infor .subcribe {
+    width: 100%;
+  }
+  
+  #footer .content .infor .subcribe h3 {
+    font-size: 1.25vw;
+    font-weight: 600;
+    margin-bottom: 0.972vw;
+  }
+  
+  #footer .content .infor .subcribe p {
+    font-size: 0.903vw;
+    margin-bottom: 1.597vw;
+  }
+  
+  #footer .content .infor .subcribe .search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 3.681vw;
+    border-radius: 6.944vw;
+    border: 0.028vw solid #f9a529;
+    padding-left: 1.806vw;
+  }
+  
+  #footer .content .infor .subcribe .search input {
+    width: 16.319vw;
+    height: 3.333vw;
+    border: none;
+    outline: none;
+  }
+  
+  #footer .content .infor .subcribe .search a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.333vw;
+    width: 7.569vw;
+    border-radius: 6.944vw;
+    border: none;
+    color: white;
+    background-color: #f9a529;
+    font-size: 0.903vw;
+  }
+  
+  #footer .content .infor .subcribe .search:hover a {
+    background-color: #f4b915;
+  }
+  
+  #footer .content .intro {
+    width: 13.194vw;
+  }
+  
+  #footer .content .intro .order {
+    width: 100%;
+    height: 12.639vw;
+    margin-bottom: 3.611vw;
+  }
+  
+  #footer .content .intro .order h3 {
+    font-size: 1.25vw;
+    font-weight: 600;
+    margin-bottom: 1.736vw;
+  }
+  
+  #footer .content .intro .order button {
+    width: 9.583vw;
+    height: 2.431vw;
+    background-color: #f9a529;
+    color: white;
+    border: none;
+    border-radius: 6.944vw;
+    margin-bottom: 1.528vw;
+    font-size: 0.903vw;
+  }
+  
+  #footer .content .intro .order p {
+    font-size: 0.903vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.389vw;
+  }
+  
+  #footer .content .intro .order:hover button {
+    background-color: #f4b915;
+  }
+  
+  #footer .content .intro .about-us {
+    width: 13.194vw;
+  }
+  
+  #footer .content .intro .about-us h3 {
+    font-size: 1.25vw;
+    font-weight: 600;
+    margin-bottom: 1.528vw;
+  }
+  
+  #footer .content .intro .about-us p {
+    font-size: 0.903vw;
+    margin-bottom: 1.319vw;
+  }
+  
+  #footer .content .social {
+    width: 9.931vw;
+  }
+  
+  #footer .content .social .shipping {
+    width: 100%;
+    height: 12.639vw;
+    margin-bottom: 3.611vw;
+  }
+  
+  #footer .content .social .shipping h3 {
+    font-size: 1.25vw;
+    font-weight: 600;
+  }
+  
+  #footer .content .social .shipping p {
+    margin-top: 1.528vw;
+    font-size: 0.903vw;
+  }
+  
+  #footer .content .social .social-media {
+    width: 100%;
+  }
+  
+  #footer .content .social .social-media h3 {
+    font-size: 1.25vw;
+    font-weight: 600;
+    margin-bottom: 1.736vw;
+  }
+  
+  #footer .content .social .social-media .icon {
+    display: flex;
+    margin-bottom: 1.597vw;
+  }
+  
+  #footer .content .social .social-media .icon span {
+    color: #f9a529;
+    margin-right: 1.458vw;
+  }
+  
+  #footer .content .social .social-media p {
+    font-size: 0.903vw;
+    margin-bottom: 1.042vw;
+  }
+  
+  #footer .content .outro {
+    width: 11.806vw;
+    height: 27.639vw;
+  }
+  
+  #footer .content .outro .shopping-app {
+    width: 100%;
+    height: 12.639vw;
+    margin-bottom: 3.611vw;
+  }
+  
+  #footer .content .outro .shopping-app h3 {
+    font-size: 1.25vw;
+    font-weight: 600;
+    margin-bottom: 1.528vw;
+  }
+  
+  #footer .content .outro .shopping-app p {
+    width: 100%;
+    font-size: 0.903vw;
+    line-height: 20px;
+    margin-bottom: 1.875vw;
+  }
+  
+  #footer .content .outro .shopping-app img {
+    width: 9.167vw;
+    height: 3.75vw;
+  }
+  
+  #footer .content .outro .policies {
+    width: 100%;
+  }
+  
+  #footer .content .outro .policies h3 {
+    font-size: 1.25vw;
+    font-weight: 600;
+    margin-bottom: 1.528vw;
+  }
+  
+  #footer .content .outro .policies p {
+    font-size: 0.903vw;
+    margin-bottom: 1.319vw;
+  }
+  
+  #footer .coppyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 0.069vw solid #f9a529;
+    width: 100%;
+    height: 3.472vw;
+    color: #7a7a7a;
+    font-size: 0.972vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  

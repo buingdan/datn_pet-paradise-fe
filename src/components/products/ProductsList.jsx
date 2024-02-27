@@ -14,7 +14,7 @@ function ProductList(props) {
   const openDeleteConfirmModal = (product) => {
     console.log(product)
 
-    const message = "Bạn có muốn xóa sản phẩm " + product.name;
+    const message = "Bạn có muốn xóa sản phẩm ";
 
     Modal.confirm({
       title: 'Confirm',
@@ -55,9 +55,9 @@ function ProductList(props) {
          
         ></Column>
         <Column title="Giá" key="price" dataIndex="price"></Column>
-        <Column title="Số lượng" key="quantityInStock" dataIndex="quantityInStock"></Column>
+        <Column title="Số lượng" key="quantityInStock" dataIndex="quantity_in_stock"></Column>
         <Column title="Giảm giá" key="discount" dataIndex="discount"></Column>
-        <Column title="Đánh giá" key="voteAverage" dataIndex="voteAverage"></Column>
+        {/* <Column title="Đánh giá" key="voteAverage" dataIndex="voteAverage"></Column> */}
 
         <Column
           title="Hành động"

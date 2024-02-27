@@ -19,6 +19,7 @@ function ProductForm(props) {
   const [fileList, setFileList] = useState([]);
   const isLoading = useSelector((state) => state.commonReducer.isLoading);
   const product = useSelector((state) => state.productReducer.product);
+  const products = useSelector((state) => state.productReducer.products);
   const { id } = useParams();
   const form = createRef();
   // const onCreate = (values) => {
@@ -171,7 +172,7 @@ function ProductForm(props) {
           <Form.Item
             name="quantityInStock"
             label="Số lượng"
-            initialValue={product.quantityInStock}
+            initialValue={product.quantity_in_stock}
             rules={
               product.id
                 ? []
@@ -202,7 +203,7 @@ function ProductForm(props) {
           >
             <Input />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="voteAverage"
             label="Đánh giá"
             initialValue={product.voteAverage}
@@ -219,7 +220,7 @@ function ProductForm(props) {
             }
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="imgFile"
             label="Ảnh"

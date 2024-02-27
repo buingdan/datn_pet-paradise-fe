@@ -1,0 +1,65 @@
+header {
+  height: 480px;
+  background: center bottom/ cover no-repeat
+    url(https://bizweb.dktcdn.net/100/432/370/themes/894869/assets/slider_1.png?1676276556806);
+  height: 60vh;
+  padding-top: 20px;
+}
+.header_menu {
+  width: 100%;
+  height: 88px;
+  background: #71cbe8;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+}
+.menu-content {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed #fff;
+  border-radius: 50px;
+  padding: 0 80px;
+}
+.menu-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header_nav {
+  height: 100%;
+  width: 404px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  font-size: 18px;
+  color: white;
+}
+.header_nav .ant-menu-item:hover {
+    color: #f9a529; 
+}
+  .header_nav .ant-menu-item-selected {
+    color: #f9a529;
+  }
+.logo {
+  width: 150px;
+  height: 150px;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.actions{
+    height: 100%;
+    width: 362px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 18px;
+}
+.actions button{
+    background-color: transparent !important;
+}

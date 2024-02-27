@@ -18,7 +18,7 @@ export const login = (email, password) => async (dispatch) => {
       payload: true,
     });
 
-    const response = await authService.Login(email, password);
+    const response = await authService.login(email, password);
 
     if (response.status === 200) {
       dispatch({
@@ -26,6 +26,7 @@ export const login = (email, password) => async (dispatch) => {
         payload: {
           user_name: response.data.body.user_name,
           email: response.data.body.email,
+          user: response.data.body.user,
           access_token: response.data.body.access_token,
           refresh_token: response.data.body.refresh_token,
         },
@@ -50,7 +51,7 @@ export const login = (email, password) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: COMMON_ERROR_SET,
-      payload: error.response?.data?.message || "Authentication failed",
+      payload: error.response?.data?.message || "Phân quyền thất bại",
     });
 
     dispatch({
