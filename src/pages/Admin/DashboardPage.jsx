@@ -18,12 +18,9 @@ import {
   MdLogout,
   MdCategory,
 } from "react-icons/md";
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import AddOrEditCategory from "../../components/categories/AddOrEditCategory";
-import ListCategory from "../../components/categories/ListCategory";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setError, setMessage } from "../../redux/actions/commonAction";
-import ListManufacturers from "../../components/products/ListProducts";
 import { clearAuthState, login } from "../../redux/actions/authAction";
 const { Header, Sider, Content } = Layout;
 
@@ -38,27 +35,25 @@ function DashboardPage() {
 
   const siteLayoutStyle = { marginLeft: marginLeft };
 
-
-
   const dispatch = useDispatch();
   const msg = useSelector((state) => state.commonReducer.message);
   const err = useSelector((state) => state.commonReducer.error);
-  
+
   useEffect(() => {
-    dispatch(login("admin@gmail.com","12345"))
+    dispatch(login("admin@gmail.com", "12345"));
     return () => {
       dispatch(clearAuthState());
     };
   }, []);
   useEffect(() => {
-    if(msg){
-      dispatch(setMessage(''))
-      message.success(msg)
+    if (msg) {
+      dispatch(setMessage(""));
+      message.success(msg);
     }
 
-    if(err){
-      dispatch(setError(''))
-      message.error(err)
+    if (err) {
+      dispatch(setError(""));
+      message.error(err);
     }
   }, [msg, err]);
   return (
@@ -100,19 +95,19 @@ function DashboardPage() {
                   key: "21",
                   icon: <IoMdAddCircleOutline />,
                   label: "Loại sản phẩm",
-                  onClick: () => navigate("/categories/add"),
+                  onClick: () => navigate("/admin/categories/add"),
                 },
                 {
                   key: "22",
                   icon: <MdFormatListBulleted />,
                   label: "Danh sách loại sản phẩm",
-                  onClick: () => navigate("/categories/list"),
+                  onClick: () => navigate("/admin/categories/list"),
                 },
                 {
                   key: "23",
                   icon: <IoMdAddCircleOutline />,
                   label: "Danh sách sản phẩm",
-                  onClick: () => navigate("/products/list"),
+                  onClick: () => navigate("/admin/products/list"),
                 },
               ],
             },
@@ -199,21 +194,7 @@ function DashboardPage() {
           }}
         >
           <div className="content-panel">
-            <Routes>
-              {/* <Route path="/" element={<Home />}></Route> */}
-              <Route
-                path="/categories/add"
-                element={<AddOrEditCategory key="a"/>}
-              ></Route>
-              <Route
-                path="/categories/update/:id"
-                element={<AddOrEditCategory key="u"/>}
-              ></Route>
-              <Route path="/categories/list" element={<ListCategory />}></Route>
-              <Route path="/products/list" element={<ListManufacturers />}></Route>
-            </Routes>
-
-            <Outlet></Outlet>
+            <Outlet/>
           </div>
         </Content>
       </Layout>

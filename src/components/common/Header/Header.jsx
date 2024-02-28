@@ -9,6 +9,7 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { Link } from 'react-router-dom';
 
 const { SubMenu } = Menu;
 function Header() {
@@ -92,9 +93,9 @@ function Header() {
               />
               {/* </div> */}
               <div className="logo">
-                {/* <Link to="/"> */}
+                <Link to="/">
                 <img src={logo} alt="logo" />
-                {/* </Link> */}
+                </Link>
               </div>
               <div className="actions">
                 <Badge count={5}>

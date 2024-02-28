@@ -21,6 +21,11 @@
   align-items: center;
   color: white;
   border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.category-card:hover {
+  transform: translateY(-5px);
 }
 .category-card h2:hover{
   color: #f4b915;
@@ -55,6 +60,7 @@
   border-bottom-right-radius: 20px;
   margin-top: 40px;
   transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .product-card:hover {
   transform: translateY(-5px);
