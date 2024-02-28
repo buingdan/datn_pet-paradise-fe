@@ -61,7 +61,7 @@ function ListProducts() {
             <Form.Item name="query" initialValue={pagination && pagination.query ? pagination.query : undefined}>
               <Input></Input>
             </Form.Item>
-            <Button type="primary" htmlType="submit">Search</Button>
+            <Button type="primary" htmlType="submit">Tìm kiếm</Button>
           </Form>
         </Col>
         <Col md={3}>

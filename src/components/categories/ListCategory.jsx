@@ -49,7 +49,6 @@ useEffect(() => {
   }
   return (
     <div>
-      {/* <ButtonContentDB /> */}
       <Table dataSource={categories} size="small" rowKey="id">
         <Column
           title="STT"

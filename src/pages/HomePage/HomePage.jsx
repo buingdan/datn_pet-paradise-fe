@@ -7,8 +7,8 @@ import imgnewletter1 from "../../assets/img/newletter1.webp";
 import imgnewletter2 from "../../assets/img/newletter2.webp";
 function HomePage() {
   return (
-    <div>
-      <Header></Header>
+    <div className="home-container">
+      <Header></Header> 
       <div className="decor">
         <h1>Danh Mục</h1>
         <img src={imgdecor} alt="imgdecor" />
@@ -36,31 +36,22 @@ function HomePage() {
       <div className="container">
         <div className="product">
           <div className="product-card">
-            <h2>Chó</h2>
           </div>
           <div className="product-card">
-            <h2>Mèo</h2>
           </div>
           <div className="product-card">
-            <h2>Phụ kiện</h2>
           </div>
           <div className="product-card">
-            <h2>Chó</h2>
           </div>
           <div className="product-card">
-            <h2>Mèo</h2>
           </div>
           <div className="product-card">
-            <h2>Phụ kiện</h2>
           </div>
           <div className="product-card">
-            <h2>Chó</h2>
           </div>
           <div className="product-card">
-            <h2>Mèo</h2>
           </div>
           <div className="product-card">
-            <h2>Phụ kiện</h2>
           </div>
         </div>
       </div>
@@ -68,7 +59,7 @@ function HomePage() {
         <h1>Tin Thú Cưng</h1>
         <img src={imgdecor} alt="imgdecor" />
       </div>
-      <div className="container">
+      <div className="container home-newletter">
         <div className="newletter">
           <div className="newletter-card">
             <img src={imgnewletter1} alt="imgbanner" />

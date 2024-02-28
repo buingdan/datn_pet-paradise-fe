@@ -35,6 +35,9 @@
     font-weight: 600;
     line-height: normal;
   }
+  #footer .content .infor .logo p:hover{
+    color: #f4b915;
+  }
   
   #footer .content .infor .subcribe {
     width: 100%;
@@ -177,7 +180,9 @@
     color: #f9a529;
     margin-right: 1.458vw;
   }
-  
+  #footer .content .social .social-media .icon span:hover{
+    color: #f4b915;
+  }
   #footer .content .social .social-media p {
     font-size: 0.903vw;
     margin-bottom: 1.042vw;

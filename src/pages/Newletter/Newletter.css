@@ -1,0 +1,73 @@
+.newletter-container #header {
+  height: 300px;
+  background: center center/ cover no-repeat url(https://bizweb.dktcdn.net/100/432/370/themes/894869/assets/breadcrumb.png?1665454509075);
+}
+
+.content-newletter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.newletter-left {
+  width: 60%;
+}
+.newletter-left h2{
+  margin-bottom: 20px;
+}
+
+.newletter-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px; 
+}
+
+.newletter-card {
+  margin-bottom: 160px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.newletter-card .newletter_content {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  padding: 28px 30px 29px 27px;
+  width: calc(100% - 60px); 
+  max-height: 164px;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.newletter-right {
+  width: 30%;
+}
+
+.newletter-container #footer {
+  margin-top: 20px; 
+}
+.newletter-right h2{
+  margin-bottom: 20px;
+}
+.hot-new{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.hot-new img{
+  width: 165px;
+  height: 93px;
+}
+.hot-new p{
+  font-size: 17px;
+}
+
+.newletter-right>img{
+  margin-top: 50px;
+  height: 266px;
+  margin-bottom: 20px;
+}

@@ -1,8 +1,6 @@
-header {
-  height: 480px;
-  background: center bottom/ cover no-repeat
-    url(https://bizweb.dktcdn.net/100/432/370/themes/894869/assets/slider_1.png?1676276556806);
-  height: 60vh;
+#header {
+  height: 500px;
+  background: center bottom/ cover no-repeat url(https://bizweb.dktcdn.net/100/432/370/themes/894869/assets/slider_1.png?1676276556806);
   padding-top: 20px;
 }
 .header_menu {
