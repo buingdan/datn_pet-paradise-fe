@@ -53,7 +53,7 @@ export const insertCategory = (category, navigate) => async (dispatch) => {
     payload: false,
   });
 
-  navigate("/categories/list");
+  navigate("/admin/categories/list");
 };
 
 export const getCategories = () => async (dispatch) => {
@@ -234,7 +234,7 @@ export const updateCategory = (id, category, navigate) => async (dispatch) => {
     payload: false,
   });
 
-  navigate("/categories/list")
+  navigate("/admin/categories/list")
 };
 export const clearCategoryState = () => async (dispatch) => {
   dispatch({ type: CATEGORY_STATE_CLEAR });

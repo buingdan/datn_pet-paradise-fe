@@ -1,6 +1,6 @@
 #header {
   height: 500px;
-  background: center bottom/ cover no-repeat url(https://bizweb.dktcdn.net/100/432/370/themes/894869/assets/slider_1.png?1676276556806);
+  background: center bottom/ cover no-repeat url(../../../assets/img/bg-h.webp);
   padding-top: 20px;
 }
 .header_menu {
@@ -60,4 +60,7 @@
 }
 .actions button{
     background-color: transparent !important;
+}
+.actions span{
+  color: white;
 }

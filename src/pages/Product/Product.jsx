@@ -2,21 +2,32 @@ import Footer from "../../components/common/Footer/Footer";
 import Header from "../../components/common/Header/Header";
 import imgdecor from "../../assets/img/img_decor.png";
 import "./Product.css";
-import { Button, Form, Menu } from "antd";
+import { Button, Form, Menu, Rate } from "antd";
 import Input from "antd/es/input/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsByName } from "../../redux/actions/productAction";
+import { clearProductState, getProducts, getProductsByName } from "../../redux/actions/productAction";
+import { useEffect } from "react";
+import ProductService from "../../services/productService";
+import { LikeOutlined } from "@ant-design/icons";
 function Product() {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.productReducer.pagination);
+  const products = useSelector((state) => state.productReducer.products);
   const handleSearch = (value) => {
     const params = {
       query: value.query || "",
       size: pagination.size,
     };
+    console.log(">>>check value", value);
     console.log(">>>check params", params);
     dispatch(getProductsByName(params));
   };
+  useEffect(() => {
+    dispatch(getProducts());
+    return () => {
+      dispatch(clearProductState());
+    };
+  }, []);
   return (
     <div className="product-container">
       <Header></Header>
@@ -39,7 +50,7 @@ function Product() {
                 pagination && pagination.query ? pagination.query : undefined
               }
             >
-              <Input></Input>
+              <Input placeholder="Tìm kiếm... "></Input>
             </Form.Item>
             <Button type="primary" htmlType="submit">
               Tìm kiếm
@@ -53,66 +64,76 @@ function Product() {
               {
                 key: "1",
                 label: "Chó",
-                // onClick: () => navigate("/categories/add"),
                 children: [
                   {
                     key: "11",
                     label: "Corgi",
-                    // onClick: () => navigate("/categories/add"),
+                    onClick: () => handleSearch({ query: 'Corgi' })
                   },
                   {
                     key: "12",
                     label: "Golden Retriever",
-                    // onClick: () => navigate("/categories/list"),
+                    onClick: () => handleSearch({ query: 'Golden Retriever' })
                   },
                   {
                     key: "13",
                     label: "Husky",
-                    // onClick: () => navigate("/products/list"),
+                    onClick: () => handleSearch({ query: 'Husky' })
                   },
                 ],
               },
               {
                 key: "2",
                 label: "Mèo",
-                // onClick: () => navigate("/categories/list"),
                 children: [
                   {
                     key: "21",
                     label: "Anh lông ngắn",
-                    // onClick: () => navigate("/categories/add"),
+                    onClick: () => handleSearch({ query: 'Anh lông ngắn' })
                   },
                   {
                     key: "22",
                     label: "Tai cụp",
-                    // onClick: () => navigate("/categories/list"),
+                    onClick: () => handleSearch({ query: 'Tai cụp' })
                   },
                   {
                     key: "23",
                     label: "Chân ngắn",
-                    // onClick: () => navigate("/products/list"),
+                    onClick: () => handleSearch({ query: 'Chân ngắn' })
                   },
                 ],
               },
               {
                 key: "3",
                 label: "Phụ kiện",
-                // onClick: () => navigate("/products/list"),
+                // onClick: () => handleSearch({ query: 'Chân ngắn' })
               },
             ]}
           />
         </div>
         <div className="container right-content">
           <div className="product">
-            <div className="product-card"></div>
-            <div className="product-card"></div>
-            <div className="product-card"></div>
-            <div className="product-card"></div>
-            <div className="product-card"></div>
-            <div className="product-card"></div>
-            <div className="product-card"></div>
-            <div className="product-card"></div>
-            <div className="product-card"></div>
+          {products &&
+            products.map((product) => (
+              <div className="product-card">
+                <div className="product-card-img">
+                  <img
+                    src={ProductService.getProductLogoUrl(product.image)}
+                    alt={product.name}
+                  />
+                </div>
+                <div className="product-card-act">
+                  <div className="product-card-act-up">
+                    <Rate defaultValue={4.5} />
+                    <p><span>₫</span>{product.price.toLocaleString('vi-VN')}</p>
+                  </div>
+                  <div className="product-card-act-down">
+                    <p>{product.name}</p>
+                    <LikeOutlined />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

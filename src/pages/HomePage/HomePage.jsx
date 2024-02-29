@@ -5,23 +5,41 @@ import imgdecor from "../../assets/img/img_decor.png";
 import imgbanner from "../../assets/img/banner.webp";
 import imgnewletter1 from "../../assets/img/newletter1.webp";
 import imgnewletter2 from "../../assets/img/newletter2.webp";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Rate } from "antd";
+import {
+  clearProductState,
+  getProducts,
+} from "../../redux/actions/productAction";
+import ProductService from "../../services/productService";
+import { LikeOutlined } from "@ant-design/icons";
 function HomePage() {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.productReducer.products);
+
+  useEffect(() => {
+    dispatch(getProducts());
+    return () => {
+      dispatch(clearProductState());
+    };
+  }, []);
   return (
     <div className="home-container">
-      <Header></Header> 
+      <Header></Header>
       <div className="decor">
         <h1>Danh Mục</h1>
         <img src={imgdecor} alt="imgdecor" />
       </div>
       <div className="container">
         <div className="category">
-          <div className="category-card">
+          <div className="category-card dog">
             <h2>Chó</h2>
           </div>
-          <div className="category-card">
+          <div className="category-card cat">
             <h2>Mèo</h2>
           </div>
-          <div className="category-card">
+          <div className="category-card access">
             <h2>Phụ kiện</h2>
           </div>
         </div>
@@ -35,24 +53,27 @@ function HomePage() {
       </div>
       <div className="container">
         <div className="product">
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
-          <div className="product-card">
-          </div>
+          {products &&
+            products.map((product) => (
+              <div className="product-card">
+                <div className="product-card-img">
+                  <img
+                    src={ProductService.getProductLogoUrl(product.image)}
+                    alt={product.name}
+                  />
+                </div>
+                <div className="product-card-act">
+                  <div className="product-card-act-up">
+                    <Rate defaultValue={4.5} />
+                    <p><span>₫</span>{product.price.toLocaleString('vi-VN')}</p>
+                  </div>
+                  <div className="product-card-act-down">
+                    <p>{product.name}</p>
+                    <LikeOutlined />
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
       <div className="decor">

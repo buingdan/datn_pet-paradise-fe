@@ -62,7 +62,7 @@ export const insertProduct = (product, navigate) => async (dispatch) => {
     payload: false,
   });
 
-  navigate("/products/list");
+  navigate("/admin/products/list");
 };
 
 export const getProducts = () => async (dispatch) => {
@@ -217,7 +217,7 @@ export const getProduct = (id) => async (dispatch) => {
   const service = new ProductService();
 
   try {
-    console.log("get manufacturer: ");
+    console.log("get product: ");
 
     dispatch({
       type: COMMON_LOADING_SET,
@@ -309,7 +309,7 @@ console.log(">>>",product);
     payload: false,
   });
 
-  navigate("/products/list")
+  navigate("/admin/products/list")
 };
 export const clearProductState = () => async (dispatch) => {
   dispatch({ type: PRODUCT_STATE_CLEAR });

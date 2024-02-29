@@ -17,7 +17,7 @@ function Footer() {
                         <p>Blog mới về thú cưng mỗi tuần!</p>
                         <div className="search">
                             <input placeholder="ĐỊA CHỈ EMAIL CỦA BẠN..." />
-                            <Link to="/signup">ĐĂNG KÝ</Link>
+                            <Link to="/register">ĐĂNG KÝ</Link>
                         </div>
                     </div>
                 </div>

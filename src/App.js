@@ -3,7 +3,7 @@ import "antd/dist/reset.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  
 import store from "./redux/store";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import DashboardPage from "./pages/Admin/DashboardPage";
 import HomePage from "./pages/HomePage/HomePage";
 import Product from "./pages/Product/Product";

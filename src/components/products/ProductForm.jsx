@@ -57,11 +57,11 @@ function ProductForm(props) {
   };
   // console.log(">>>check1:",manufacturer.image);
 
-  let tittle = "Create a new collection";
-  let okText = "Create";
+  let tittle = "Tạo mới danh mục sản phẩm";
+  let okText = "Thêm";
   if (product.id) {
-    tittle = "Update a new collection";
-    okText = "Update";
+    tittle = "Chỉnh sửa danh mục sản phẩm";
+    okText = "Sửa";
   }
 
   useEffect(() => {

@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Image, Modal, Space, Table, Tag } from "antd";
 import Column from "antd/es/table/Column";
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import ManufacturerService from "../../services/productService";
 import { deleteProduct, getProducts } from "../../redux/actions/productAction";
 import { useDispatch } from "react-redux";
 import ProductService from "../../services/productService";
@@ -45,7 +44,7 @@ function ProductList(props) {
           title="Hình ảnh"
           key="logo"
           dataIndex="logo"
-          width={90}
+          width={180}
           align="center"
           render={(_,record) => (
             <Space size="middle">
@@ -55,6 +54,7 @@ function ProductList(props) {
          
         ></Column>
         <Column title="Giá" key="price" dataIndex="price"></Column>
+        <Column title="Ngày tạo" key="create_date" dataIndex="create_date"></Column>
         <Column title="Số lượng" key="quantityInStock" dataIndex="quantity_in_stock"></Column>
         <Column title="Giảm giá" key="discount" dataIndex="discount"></Column>
         {/* <Column title="Đánh giá" key="voteAverage" dataIndex="voteAverage"></Column> */}

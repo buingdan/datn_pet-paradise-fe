@@ -8,7 +8,7 @@ import {
   Row,
   Select,
 } from "antd";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import ButtonContentDB from "../common/ButtonContentDB";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ function AddOrEditCategory() {
   const category = useSelector((state) => state.categoryReducer.category);
   const { id } = useParams();
   const formRef = useRef(null);
+  const [order, setOrder] = useState(category.id ? category.order : 0);
 
   const confirmUpdate = () => {
     formRef.current.submit();
@@ -51,8 +52,6 @@ function AddOrEditCategory() {
 
   return (
     <div>
-      {/* <ButtonContentDB /> */}
-
       <Form
         layout="vertical"
         className="form"
@@ -65,8 +64,8 @@ function AddOrEditCategory() {
           <Col md={12}>
             <Form.Item
               label="STT"
-              name="categoryId"
-              initialValue={category.id}
+              name="order"
+              initialValue={order}
               hidden={category.id ? false : true}
             >
               <Input readOnly />
@@ -89,7 +88,7 @@ function AddOrEditCategory() {
                 style={{ float: "right" }}
                 loading={isLoading}
               >
-                Save
+                Lưu
               </Button>
             )}
             {category.id && (
@@ -97,8 +96,8 @@ function AddOrEditCategory() {
                 <Popconfirm
                   title="Bạn có chắc cập nhật sản phẩm này?"
                   onConfirm={confirmUpdate}
-                  okText="Yes"
-                  cancelText="No"
+                  okText="Có"
+                  cancelText="Không"
                 >
                   <Button
                     htmlType="button"
@@ -106,7 +105,7 @@ function AddOrEditCategory() {
                     style={{ float: "right" }}
                     loading={isLoading}
                   >
-                    Update
+                    Sửa
                   </Button>
                 </Popconfirm>
               </Form.Item>

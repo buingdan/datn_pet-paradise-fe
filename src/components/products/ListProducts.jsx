@@ -54,24 +54,24 @@ function ListProducts() {
   };
   return (
     <div>
-      {/* <ButtonContentDB /> */}
       <Row style={{ marginBottom: 10 }}>
         <Col md={20}>
           <Form layout="inline" name="searchForm" onFinish={handleSearch}>
             <Form.Item name="query" initialValue={pagination && pagination.query ? pagination.query : undefined}>
-              <Input></Input>
+              <Input placeholder="Tìm kiếm..."></Input>
             </Form.Item>
             <Button type="primary" htmlType="submit">Tìm kiếm</Button>
           </Form>
         </Col>
-        <Col md={3}>
+        <Col md={3} style={{display: "flex", justifyContent:"flex-end"}}>
           <Button
             type="primary"
             onClick={() => {
               setOpen(true);
             }}
+            style={{backgroundColor:"#16ff8a"}}
           >
-            Thêm sản phẩm
+            + Thêm mới
           </Button>
         </Col>
       </Row>

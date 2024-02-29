@@ -9,7 +9,7 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 function Header() {
@@ -19,7 +19,7 @@ function Header() {
         <div className="header_menu">
           <div className="menu-content">
             <div className="menu-wrapper">
-              <Menu
+              {/* <Menu
                 className="header_nav"
                 // theme="dark"
                 mode="horizontal"
@@ -90,11 +90,53 @@ function Header() {
                     label: "Tin thú cưng",
                   },
                 ]}
-              />
-              {/* </div> */}
+              /> */}
+              <Menu
+                className="header_nav"
+                mode="horizontal"
+                defaultSelectedKeys={["1"]}
+              >
+                <Menu.Item key="1">
+                  <Link to="/">Trang chủ</Link>
+                </Menu.Item>
+                <Link to="/product">
+                  <SubMenu key="2" title="Sản phẩm">
+                    {/* <Menu.Item key="21">
+                      <Link to="/product">Chó</Link>
+                    </Menu.Item>
+                    <Menu.Item key="22">
+                      <Link to="/product">Mèo</Link>
+                    </Menu.Item>
+                    <Menu.Item key="23">
+                      <Link to="/product">Phụ kiện</Link>
+                    </Menu.Item> */}
+                    <Menu.Item
+                      key="21"
+                      // onClick={() => handleSearch({ query: "Chó" })}
+                    >
+                      <Link to="/product">Chó</Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key="22"
+                      // onClick={() => handleSearch({ query: "Mèo" })}
+                    >
+                      <Link to="/product">Mèo</Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key="23"
+                      // onClick={() => handleSearch({ query: "Phụ kiện" })}
+                    >
+                      <Link to="/product">Phụ kiện</Link>
+                    </Menu.Item>
+                  </SubMenu>
+                </Link>
+                <Menu.Item key="3">
+                  <Link to="/newletter">Tin thú cưng</Link>
+                </Menu.Item>
+              </Menu>
               <div className="logo">
                 <Link to="/">
-                <img src={logo} alt="logo" />
+                  <img src={logo} alt="logo" />
                 </Link>
               </div>
               <div className="actions">
@@ -102,7 +144,11 @@ function Header() {
                   <Button type="text" icon={<ShoppingCartOutlined />} />
                 </Badge>
                 <Button type="primary" icon={<UserOutlined />}>
-                  Đăng nhập / Đăng ký
+                  <Link to="/login">Đăng nhập</Link>
+                </Button>
+                <span>/</span>
+                <Button type="primary">
+                  <Link to="/register">Đăng ký</Link>
                 </Button>
               </div>
             </div>

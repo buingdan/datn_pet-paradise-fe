@@ -1,11 +1,15 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./Register.css"
 import bglogin from "../../assets/img/bglogin.png"
 import {DoubleLeftOutlined} from "@ant-design/icons"
+import { useDispatch } from "react-redux"
+import { register } from "../../redux/actions/authAction"
 
 
 function Register() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -13,7 +17,7 @@ function Register() {
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const handleSaveUser = async () => {
-        console.log("dispatch add user");
+        dispatch(register(username, fullName, email, password, address, phoneNumber, navigate));
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -24,7 +28,7 @@ function Register() {
         <div id="signup">
             <div className="wrapper">
                 <div className="content">
-                    <img src={bglogin} />
+                    <img src={bglogin} alt="bg-login" />
                     <div className="form">
                         <p>Đăng ký</p>
                         <div className="signin" >

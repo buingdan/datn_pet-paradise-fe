@@ -18,7 +18,8 @@ import {
   MdLogout,
   MdCategory,
 } from "react-icons/md";
-import { Outlet, useNavigate } from "react-router-dom";
+import logo from "../../assets/img/logo.png"
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setError, setMessage } from "../../redux/actions/commonAction";
 import { clearAuthState, login } from "../../redux/actions/authAction";
@@ -39,12 +40,12 @@ function DashboardPage() {
   const msg = useSelector((state) => state.commonReducer.message);
   const err = useSelector((state) => state.commonReducer.error);
 
-  useEffect(() => {
-    dispatch(login("admin@gmail.com", "12345"));
-    return () => {
-      dispatch(clearAuthState());
-    };
-  }, []);
+  // useEffect(() => {
+  //   dispatch(login("admin@gmail.com", "12345"));
+  //   return () => {
+  //     dispatch(clearAuthState());
+  //   };
+  // }, []);
   useEffect(() => {
     if (msg) {
       dispatch(setMessage(""));
@@ -72,7 +73,7 @@ function DashboardPage() {
         }}
       >
         <div className="logo">
-          <h2>{collapsed ? "LG" : "LOGO"}</h2>
+          <h2>{collapsed ? "LG" : <Link to="/"><img src={logo} alt="logo"></img></Link>}</h2>
         </div>
 
         <Menu
@@ -80,41 +81,36 @@ function DashboardPage() {
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={[
+            // {
+            //   key: "1",
+            //   icon: <IoIosHome />,
+            //   label: "Trang chủ",
+            //   // onClick: () => navigate("/"),
             {
               key: "1",
-              icon: <IoIosHome />,
-              label: "Trang chủ",
-              // onClick: () => navigate("/"),
+              icon: <MdInventory2 />,
+              label: "QL Sản phẩm",
+              onClick: () => navigate("/admin/products/list"),
             },
+            // },
             {
               key: "2",
               icon: <MdOutlineCategory />,
-              label: "Sản phẩm",
+              label: "QL Danh mục SP",
               children: [
                 {
                   key: "21",
                   icon: <IoMdAddCircleOutline />,
-                  label: "Loại sản phẩm",
+                  label: "Thêm danh mục",
                   onClick: () => navigate("/admin/categories/add"),
                 },
                 {
                   key: "22",
                   icon: <MdFormatListBulleted />,
-                  label: "Danh sách loại sản phẩm",
+                  label: "Danh mục SP",
                   onClick: () => navigate("/admin/categories/list"),
                 },
-                {
-                  key: "23",
-                  icon: <IoMdAddCircleOutline />,
-                  label: "Danh sách sản phẩm",
-                  onClick: () => navigate("/admin/products/list"),
-                },
               ],
-            },
-            {
-              key: "3",
-              icon: <MdInventory2 />,
-              label: "Products",
             },
             {
               key: "4",

@@ -10,13 +10,14 @@ export default class AuthService {
     return await axios.post(API_LOGIN, data);
   };
 
-  register = async (username, fullname, email, password, address) => {
+  register = async (username, fullName, email, password, address, phoneNumber) => {
     const data = {
       username: username,
-      fullname: fullname,
+      fullName: fullName,
       email: email,
       password: password,
       address: address,
+      phoneNumber: phoneNumber
     };
     return await axios.post(API_REGISTER, data);
   };

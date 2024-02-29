@@ -12,6 +12,16 @@
   display: flex;
   justify-content: space-between;
 }
+.category .dog{
+  background-image:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/732804141202ac4e22e9d2122afece57-2818538232677117740\ \(1\).jpg);
+}
+.category .cat{
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),center/ cover no-repeat url(../../assets/img/istockphoto-530435956-612x612.jpg);
+}
+.category .access{
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),center/ cover no-repeat url(../../assets/img/kiotviet_6a9d7f6b7db6157aac8a57e14507023c.jpg);
+}
+
 .category-card {
   width: 350px;
   height: 300px;
@@ -26,10 +36,9 @@
 }
 .category-card:hover {
   transform: translateY(-5px);
-}
-.category-card h2:hover{
   color: #f4b915;
 }
+
 .banner {
   width: 100%;
   margin-top: 60px;
@@ -49,10 +58,6 @@
 .product-card {
   width: 350px;
   height: 500px;
-  background-color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: white;
   border-top-left-radius: 20px;
   border-top-right-radius: 0;
@@ -61,11 +66,61 @@
   margin-top: 40px;
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #de8ebe;
 }
 .product-card:hover {
   transform: translateY(-5px);
 }
-
+.product-card-img {
+  width: 100%;
+  height: 400px;
+}
+.product-card-img img {
+  border-top-left-radius: 20px;
+  width: 100%;
+  height: 100%;
+  /* object-fit: cover; */
+}
+.product-card-act {
+  width: 100%;
+  height: 150px;
+  border: #f4b915;
+}
+.product-card-act-up {
+  width: 100%;
+  height: 49px;
+  display: flex;
+  justify-content: space-between;
+  color: #de8ebe;
+  font-size: 18px;
+  padding: 10px 20px 0 20px;
+}
+.product-card-act-up p span {
+  font-size: 14px;
+  vertical-align: top;
+  margin-right: 2px;
+}
+.product-card-act-down {
+  color: black;
+  width: 100%;
+  height: 20px;
+  padding: 0 20px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product-card-act-down p {
+  font-family: "Coiny", cursive !important;
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 0;
+}
+.product-card-act-down p:hover {
+  color: #de8ebe;
+}
+.product-card-act-down span:hover {
+  color: #de8ebe;
+}
 
 .home-newletter .newletter {
   display: flex;

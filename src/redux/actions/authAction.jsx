@@ -61,6 +61,20 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+export const register = (username, fullName, email, password, address, phoneNumber, navigate) => async (dispatch) => {
+  const authService = new AuthService();
+    dispatch({
+      type: COMMON_LOADING_SET,
+      payload: true,
+    });
+
+    const response = await authService.register(username, fullName, email, password, address, phoneNumber);
+    console.log(">>>check register", response);
+
+    navigate("/")
+
+};
+
 export const logout = () => async (dispatch) => {
   dispatch({
     type: AUTH_LOGOUT,

@@ -23,7 +23,7 @@ useEffect(() => {
 
   const editCategory = (category) =>{
     console.log(">>>check", category);
-    navigate("/categories/update/" + category.id)
+    navigate("/admin/categories/update/" + category.id)
   }
 
   const openDeleteConfirmModal = (category) => {
@@ -39,8 +39,8 @@ useEffect(() => {
         dispatch(deleteCategory(category.id))
           .then(() => dispatch(getCategories()));
       },
-      okText: "Delete",
-      cancelText: "Cancel",
+      okText: "Xóa",
+      cancelText: "Hủy",
     })
   }
 
@@ -61,6 +61,11 @@ useEffect(() => {
           title="Các loại sản phẩm"
           key="name"
           dataIndex="name"
+        ></Column>
+        <Column
+          title="Ngày tạo"
+          key="create_date"
+          dataIndex="create_date"
         ></Column>
         <Column
           title="Hành động"
