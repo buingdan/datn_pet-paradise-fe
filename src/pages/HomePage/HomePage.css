@@ -25,7 +25,6 @@
 .category-card {
   width: 350px;
   height: 300px;
-  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +40,7 @@
 
 .banner {
   width: 100%;
-  margin-top: 60px;
+  margin-top: 80px;
   height: 400px;
 }
 
@@ -81,6 +80,29 @@
   height: 100%;
   /* object-fit: cover; */
 }
+
+/* .gelatine {
+  animation: gelatine 1s infinite
+} */
+
+@keyframes gelatine {
+  0%,to {
+      transform: scale(1)
+  }
+
+  25% {
+      transform: scale(.98,1.03)
+  }
+
+  50% {
+      transform: scale(1.02,.97)
+  }
+
+  75% {
+      transform: scale(.98,1.03)
+  }
+}
+
 .product-card-act {
   width: 100%;
   height: 150px;

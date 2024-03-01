@@ -13,6 +13,7 @@ function Product() {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.productReducer.pagination);
   const products = useSelector((state) => state.productReducer.products);
+  const email = useSelector((state) => state.auth.email);
   const handleSearch = (value) => {
     const params = {
       query: value.query || "",
@@ -30,7 +31,7 @@ function Product() {
   }, []);
   return (
     <div className="product-container">
-      <Header></Header>
+      <Header email={email}></Header>
       <div className="decor">
         <h1>Sản phẩm</h1>
         <img src={imgdecor} alt="imgdecor" />

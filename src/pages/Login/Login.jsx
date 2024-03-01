@@ -34,13 +34,19 @@ function Login() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
+  useEffect(() => {
+    dispatch(login(username, password));
+    return () => {
+      dispatch(clearAuthState());
+    };
+  }, [username, password]);
+  
   const handleLogin = async () => {
     dispatch(login(username, password));
     const roleNames = userRoles.map((role) => role.name);
     if (roleNames.includes("ROLE_ADMIN") || roleNames.includes("ROLE_MANAGER")) {
       console.log("roleNames: true:====>", roleNames);
-      navigate("/admin");
+      navigate("/admin/products/list");
     } else {
       console.log("roleNames: false:====>", roleNames);
       navigate("/");

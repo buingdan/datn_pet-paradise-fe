@@ -17,6 +17,7 @@ import { LikeOutlined } from "@ant-design/icons";
 function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
+  const email = useSelector((state) => state.auth.email);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -26,7 +27,7 @@ function HomePage() {
   }, []);
   return (
     <div className="home-container">
-      <Header></Header>
+      <Header email = {email}></Header>
       <div className="decor">
         <h1>Danh Mục</h1>
         <img src={imgdecor} alt="imgdecor" />
@@ -57,7 +58,7 @@ function HomePage() {
             products.map((product) => (
               <div className="product-card">
                 <div className="product-card-img">
-                  <img
+                  <img className="gelatine"
                     src={ProductService.getProductLogoUrl(product.image)}
                     alt={product.name}
                   />

@@ -14,11 +14,13 @@ import hotnew4 from "../../assets/img/hot-new4.webp";
 import hotnew5 from "../../assets/img/hot-new5.webp";
 import imgdecor from "../../assets/img/img_decor.png";
 import "./Newletter.css";
+import { useSelector } from "react-redux";
 
 function Newletter() {
+  const email = useSelector((state) => state.auth.email);
   return (
     <div className="newletter-container">
-      <Header></Header>
+      <Header email={email}></Header>
       <div className="decor">
         <h1>Tin Thú Cưng</h1>
         <img src={imgdecor} alt="imgdecor" />

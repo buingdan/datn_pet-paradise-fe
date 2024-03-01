@@ -1,7 +1,7 @@
 import "./Header.css";
 import logo from "../../../assets/img/logo.png";
 import bgheader from "../../../assets/img/header_img.webp";
-import { Badge, Button, Menu } from "antd";
+import { Avatar, Badge, Button, Menu } from "antd";
 import {
   MailOutlined,
   AppstoreOutlined,
@@ -10,9 +10,26 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { clearAuthState } from "../../../redux/actions/authAction";
 
 const { SubMenu } = Menu;
-function Header() {
+function Header({email}) {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [isHovered, setIsHovered] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+  const handleLogout = () => {
+    dispatch(clearAuthState());
+  };
   return (
     <header id="header">
       <div className="container">
@@ -143,13 +160,27 @@ function Header() {
                 <Badge count={5}>
                   <Button type="text" icon={<ShoppingCartOutlined />} />
                 </Badge>
-                <Button type="primary" icon={<UserOutlined />}>
-                  <Link to="/login">Đăng nhập</Link>
-                </Button>
-                <span>/</span>
-                <Button type="primary">
-                  <Link to="/register">Đăng ký</Link>
-                </Button>
+                {isAuthenticated ? (
+                 <div className="avatar-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                 <Avatar size="default" icon={<UserOutlined />} />
+                 <span>{email}</span>
+                 {isHovered && (
+                   <Button type="primary" onClick={handleLogout}>
+                     <Link to="/login">Đăng xuất</Link>
+                   </Button>
+                 )}
+               </div>
+                ) : (
+                  <>
+                    <Button type="primary">
+                      <Link to="/login">Đăng nhập</Link>
+                    </Button>
+                    <span>/</span>
+                    <Button type="primary">
+                      <Link to="/register">Đăng ký</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -64,3 +64,13 @@
 .actions span{
   color: white;
 }
+.avatar-container{
+  position: relative;
+  margin-left: 15px;
+}
+.avatar-container button{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translate(0, 60%);
+}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import ButtonContentDB from "../common/ButtonContentDB";
 import ProductList from "./ProductsList";
 import ProductForm from "./ProductForm";
 import { Button, Col, Form, Input, Pagination, Row } from "antd";

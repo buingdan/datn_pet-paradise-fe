@@ -46,7 +46,7 @@ export const login = (email, password) => async (dispatch) => {
         type: COMMON_LOADING_SET,
         payload: false,
       });
-    }
+    } 
   } catch (error) {
     console.log(error);
     dispatch({

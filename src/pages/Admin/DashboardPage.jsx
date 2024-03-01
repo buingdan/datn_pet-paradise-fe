@@ -57,6 +57,10 @@ function DashboardPage() {
       message.error(err);
     }
   }, [msg, err]);
+
+  const handleLogout = () => {
+    dispatch(clearAuthState());
+  };
   return (
     <Layout>
       <Sider
@@ -141,6 +145,7 @@ function DashboardPage() {
               key: "9",
               icon: <MdLogout />,
               label: "Đăng xuất",
+              onClick: ()=> {dispatch(clearAuthState()); navigate("/login");}
             },
           ]}
         />
