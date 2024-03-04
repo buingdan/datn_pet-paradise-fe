@@ -118,9 +118,11 @@ function DashboardPage() {
             },
             {
               key: "4",
-              icon: <MdShoppingBag />,
-              label: "Đặt hàng",
+              icon: <MdOutlineSupervisorAccount />,
+              label: "Tài khoản",
+              onClick: () => navigate("/admin/users/list"),
             },
+            
             {
               key: "5",
               icon: <MdInventory2 />,
@@ -138,8 +140,8 @@ function DashboardPage() {
             },
             {
               key: "8",
-              icon: <MdOutlineSupervisorAccount />,
-              label: "Tài khoản",
+              icon: <MdShoppingBag />,
+              label: "Đặt hàng",
             },
             {
               key: "9",

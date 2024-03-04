@@ -19,3 +19,6 @@ export const AUTH_LOGIN = "AUTH_LOGIN";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_SET_USER = "AUTH_SET_USER";
 export const AUTH_STATE_CLEAR = "AUTH_STATE_CLEAR";
+
+export const USERS_SET = "USERS_SET";
+export const USER_STATE_CLEAR = "USER_STATE_CLEAR";

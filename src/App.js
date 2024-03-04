@@ -13,6 +13,7 @@ import Register from "./pages/Register/Register";
 import AddOrEditCategory from "./components/categories/AddOrEditCategory";
 import ListCategory from "./components/categories/ListCategory";
 import ListProducts from "./components/products/ListProducts";
+import ListUsers from "./components/users/ListUsers";
 function App() {
   return (
     <Provider store={store()}>
@@ -23,6 +24,7 @@ function App() {
             <Route path="/admin/categories/update/:id" element={<AddOrEditCategory key="u" />} />
             <Route path="/admin/categories/list" element={<ListCategory />} />
             <Route path="/admin/products/list" element={<ListProducts />} />
+            <Route path="/admin/users/list" element={<ListUsers />} />
           </Route>
           <Route path="/product" element={<Product />} />
           <Route path="/newletter" element={<Newletter />} />
