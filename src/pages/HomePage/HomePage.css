@@ -21,6 +21,12 @@
 .category .access{
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),center/ cover no-repeat url(../../assets/img/kiotviet_6a9d7f6b7db6157aac8a57e14507023c.jpg);
 }
+.category a{
+  color: white;
+}
+.category a .category-card:hover{
+  color: #f4b915;
+}
 
 .category-card {
   width: 350px;
@@ -28,15 +34,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   border-radius: 10px;
   transition: transform 0.3s ease-in-out;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .category-card:hover {
   transform: translateY(-5px);
-  color: #f4b915;
 }
+
 
 .banner {
   width: 100%;
@@ -84,7 +89,7 @@
 /* .gelatine {
   animation: gelatine 1s infinite
 } */
-
+/* 
 @keyframes gelatine {
   0%,to {
       transform: scale(1)
@@ -101,7 +106,7 @@
   75% {
       transform: scale(.98,1.03)
   }
-}
+} */
 
 .product-card-act {
   width: 100%;

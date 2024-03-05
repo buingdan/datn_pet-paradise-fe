@@ -36,9 +36,9 @@ function Login() {
   };
   useEffect(() => {
     dispatch(login(username, password));
-    return () => {
-      dispatch(clearAuthState());
-    };
+    // return () => {
+    //   dispatch(clearAuthState());
+    // };
   }, [username, password]);
   
   const handleLogin = async () => {

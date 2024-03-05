@@ -58,9 +58,6 @@ function DashboardPage() {
     }
   }, [msg, err]);
 
-  const handleLogout = () => {
-    dispatch(clearAuthState());
-  };
   return (
     <Layout>
       <Sider
@@ -76,7 +73,7 @@ function DashboardPage() {
           bottom: 0,
         }}
       >
-        <div className="logo">
+        <div className="logo" style={{marginLeft: "18px"}}>
           <h2>{collapsed ? "LG" : <Link to="/"><img src={logo} alt="logo"></img></Link>}</h2>
         </div>
 
@@ -93,14 +90,14 @@ function DashboardPage() {
             {
               key: "1",
               icon: <MdInventory2 />,
-              label: "QL Sản phẩm",
+              label: "Sản phẩm",
               onClick: () => navigate("/admin/products/list"),
             },
             // },
             {
               key: "2",
               icon: <MdOutlineCategory />,
-              label: "QL Danh mục SP",
+              label: "Danh mục SP",
               children: [
                 {
                   key: "21",

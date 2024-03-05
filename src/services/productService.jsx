@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API_PRODUCT} from "./constant";
+import { API_PRODUCT, API_PRODUCT_BY_CAT} from "./constant";
 
 export default class ProductService{
     insertProduct = async (product) => {
@@ -20,6 +20,9 @@ export default class ProductService{
 
     getProducts = async () => {
         return await axios.get(API_PRODUCT);
+    };
+    getProductsByCate = async (categoryid) => {
+        return await axios.get(API_PRODUCT_BY_CAT + "/" + categoryid);
     };
 
     getProductsByName = async (params) => {

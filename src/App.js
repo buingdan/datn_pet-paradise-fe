@@ -24,9 +24,11 @@ function App() {
             <Route path="/admin/categories/update/:id" element={<AddOrEditCategory key="u" />} />
             <Route path="/admin/categories/list" element={<ListCategory />} />
             <Route path="/admin/products/list" element={<ListProducts />} />
+            <Route path="/admin/products/list" element={<ListProducts />} />
             <Route path="/admin/users/list" element={<ListUsers />} />
           </Route>
-          <Route path="/product" element={<Product />} />
+          <Route path="/product" element={<Product />} key="all"/>
+          <Route path="/product/category" element={<Product />} key="category" />
           <Route path="/newletter" element={<Newletter />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

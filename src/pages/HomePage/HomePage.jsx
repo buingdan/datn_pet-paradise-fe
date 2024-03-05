@@ -11,9 +11,11 @@ import { Rate } from "antd";
 import {
   clearProductState,
   getProducts,
+  getProductsByCate,
 } from "../../redux/actions/productAction";
 import ProductService from "../../services/productService";
 import { LikeOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
@@ -25,24 +27,33 @@ function HomePage() {
       dispatch(clearProductState());
     };
   }, []);
+  const handleCategoryClick = (categoryId) => {
+    dispatch(getProductsByCate(categoryId));
+  };
   return (
     <div className="home-container">
-      <Header email = {email}></Header>
+      <Header email={email}></Header>
       <div className="decor">
         <h1>Danh Mục</h1>
         <img src={imgdecor} alt="imgdecor" />
       </div>
       <div className="container">
         <div className="category">
-          <div className="category-card dog">
-            <h2>Chó</h2>
-          </div>
-          <div className="category-card cat">
+          <Link to="/product/category">
+            <div className="category-card dog" onClick={() => handleCategoryClick(2)}>
+              <h2>Chó</h2>
+            </div>
+          </Link>
+          <Link to="/product/category">
+          <div className="category-card cat" onClick={() => handleCategoryClick(1)}>
             <h2>Mèo</h2>
           </div>
-          <div className="category-card access">
+          </Link>
+          <Link to="/product/category">
+          <div className="category-card access" onClick={() => handleCategoryClick(3)}>
             <h2>Phụ kiện</h2>
           </div>
+          </Link>
         </div>
       </div>
       <div className="banner">
@@ -58,7 +69,8 @@ function HomePage() {
             products.map((product) => (
               <div className="product-card">
                 <div className="product-card-img">
-                  <img className="gelatine"
+                  <img
+                    className="gelatine"
                     src={ProductService.getProductLogoUrl(product.image)}
                     alt={product.name}
                   />
@@ -66,7 +78,10 @@ function HomePage() {
                 <div className="product-card-act">
                   <div className="product-card-act-up">
                     <Rate defaultValue={4.5} />
-                    <p><span>₫</span>{product.price.toLocaleString('vi-VN')}</p>
+                    <p>
+                      <span>₫</span>
+                      {product.price.toLocaleString("vi-VN")}
+                    </p>
                   </div>
                   <div className="product-card-act-down">
                     <p>{product.name}</p>

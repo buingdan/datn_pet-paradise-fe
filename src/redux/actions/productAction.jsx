@@ -10,6 +10,8 @@ import {
   PRODUCT_APPEND,
   PRODUCT_UPDATE,
   PRODUCT_SET_PAGEABLE,
+  PRODUCTS_BY_CATEGORY,
+  PRODUCT_BY_CATEGORY_STATE_CLEAR,
 } from "./actionTypes";
 
 export const insertProduct = (product, navigate) => async (dispatch) => {
@@ -165,7 +167,47 @@ export const getProductsByName = (params) => async (dispatch) => {
     payload: false,
   });
 };
+export const getProductsByCate = (categoryid) => async (dispatch) => {
+  const service = new ProductService();
 
+  try {
+    console.log("get products by category: ");
+
+    dispatch({
+      type: COMMON_LOADING_SET,
+      payload: true,
+    });
+
+    const response = await service.getProductsByCate(categoryid);
+
+    if (response.status === 200) {
+      dispatch({
+        type: PRODUCTS_BY_CATEGORY,
+        payload: response.data,
+      });
+    } else {
+      dispatch({
+        type: COMMON_ERROR_SET,
+        payload: response.message,
+      });
+    }
+    
+    console.log(">>check respone get all by category", response);
+  } catch (error) {
+    console.log("Error" + error);
+    dispatch({
+      type: COMMON_ERROR_SET,
+      payload: error.response.data
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+
+  dispatch({
+    type: COMMON_LOADING_SET,
+    payload: false,
+  });
+};
 export const deleteProduct = (id) => async (dispatch) => {
   const service = new ProductService();
 
@@ -313,6 +355,9 @@ console.log(">>>",product);
 };
 export const clearProductState = () => async (dispatch) => {
   dispatch({ type: PRODUCT_STATE_CLEAR });
+};
+export const clearProductByCategoryState = () => async (dispatch) => {
+  dispatch({ type: PRODUCT_BY_CATEGORY_STATE_CLEAR });
 };
 
 export const clearProduct = () => async (dispatch) => {

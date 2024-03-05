@@ -5,23 +5,31 @@ import "./Product.css";
 import { Button, Form, Menu, Rate } from "antd";
 import Input from "antd/es/input/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { clearProductState, getProducts, getProductsByName } from "../../redux/actions/productAction";
+import { clearProductByCategoryState, clearProductState, getProducts, getProductsByName } from "../../redux/actions/productAction";
 import { useEffect } from "react";
 import ProductService from "../../services/productService";
 import { LikeOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 function Product() {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.productReducer.pagination);
   const products = useSelector((state) => state.productReducer.products);
+  const productsByCategory = useSelector((state) => state.productReducer.products_by_category);
+  const productsToDisplay = productsByCategory && productsByCategory.length > 0 ? productsByCategory : products;
   const email = useSelector((state) => state.auth.email);
-  const handleSearch = (value) => {
+  const navigate = useNavigate();
+  const handleSearch = async (value) => {
     const params = {
       query: value.query || "",
       size: pagination.size,
     };
     console.log(">>>check value", value);
     console.log(">>>check params", params);
+    dispatch(clearProductByCategoryState());
+    await new Promise((resolve) => setTimeout(resolve, 0));
     dispatch(getProductsByName(params));
+    await new Promise((resolve) => setTimeout(resolve, 1000)); 
+    navigate("/product");
   };
   useEffect(() => {
     dispatch(getProducts());
@@ -31,6 +39,7 @@ function Product() {
   }, []);
   return (
     <div className="product-container">
+      {console.log(">>>check productsToDisplay: ",productsToDisplay)}
       <Header email={email}></Header>
       <div className="decor">
         <h1>Sản phẩm</h1>
@@ -69,17 +78,17 @@ function Product() {
                   {
                     key: "11",
                     label: "Corgi",
-                    onClick: () => handleSearch({ query: 'Corgi' })
+                    onClick: () => handleSearch({ query: 'Corgi' },navigate("/product"))
                   },
                   {
                     key: "12",
                     label: "Golden Retriever",
-                    onClick: () => handleSearch({ query: 'Golden Retriever' })
+                    onClick: () => handleSearch({ query: 'Golden Retriever' }, navigate("/product"))
                   },
                   {
                     key: "13",
                     label: "Husky",
-                    onClick: () => handleSearch({ query: 'Husky' })
+                    onClick: () => handleSearch({ query: 'Husky' }, navigate("/product"))
                   },
                 ],
               },
@@ -90,32 +99,32 @@ function Product() {
                   {
                     key: "21",
                     label: "Anh lông ngắn",
-                    onClick: () => handleSearch({ query: 'Anh lông ngắn' })
+                    onClick: () => handleSearch({ query: 'Anh lông ngắn' }, navigate("/product"))
                   },
                   {
                     key: "22",
                     label: "Tai cụp",
-                    onClick: () => handleSearch({ query: 'Tai cụp' })
+                    onClick: () => handleSearch({ query: 'Tai cụp' }, navigate("/product"))
                   },
                   {
                     key: "23",
                     label: "Chân ngắn",
-                    onClick: () => handleSearch({ query: 'Chân ngắn' })
+                    onClick: () => handleSearch({ query: 'Chân ngắn' }, navigate("/product"))
                   },
                 ],
               },
               {
                 key: "3",
                 label: "Phụ kiện",
-                // onClick: () => handleSearch({ query: 'Chân ngắn' })
+                // onClick: () => handleSearch({ query: 'Chân ngắn' }, navigate("/product"))
               },
             ]}
           />
         </div>
         <div className="container right-content">
           <div className="product">
-          {products &&
-            products.map((product) => (
+          {productsToDisplay &&
+            productsToDisplay.map((product) => (
               <div className="product-card">
                 <div className="product-card-img">
                   <img

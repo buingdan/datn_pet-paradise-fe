@@ -1,6 +1,8 @@
 import {
+  PRODUCTS_BY_CATEGORY,
   PRODUCTS_SET,
   PRODUCT_APPEND,
+  PRODUCT_BY_CATEGORY_STATE_CLEAR,
   PRODUCT_DELETE,
   PRODUCT_SET,
   PRODUCT_SET_PAGEABLE,
@@ -11,6 +13,7 @@ import {
 const initialState = {
   product: {},
   products: [],
+  products_by_category: [],
   pagination: {
     size: 5,
     page: 0,
@@ -49,7 +52,13 @@ const productReducer = (state = initialState, { type, payload }) => {
         products: [],
         pagination: state.pagination
       };
-
+    case PRODUCTS_BY_CATEGORY:
+      return{...state,products_by_category: payload};  
+    case PRODUCT_BY_CATEGORY_STATE_CLEAR:
+      return {
+        ...state,
+        products_by_category: [],
+      };
     default:
       return state;
   }

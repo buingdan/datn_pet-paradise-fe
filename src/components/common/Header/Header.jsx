@@ -127,24 +127,24 @@ function Header({email}) {
                     <Menu.Item key="23">
                       <Link to="/product">Phụ kiện</Link>
                     </Menu.Item> */}
-                    <Menu.Item
+                    {/* <Menu.Item
                       key="21"
-                      // onClick={() => handleSearch({ query: "Chó" })}
+                      onClick={() => handleSearch({ query: "Chó" })}
                     >
                       <Link to="/product">Chó</Link>
                     </Menu.Item>
                     <Menu.Item
                       key="22"
-                      // onClick={() => handleSearch({ query: "Mèo" })}
+                      onClick={() => handleSearch({ query: "Mèo" })}
                     >
                       <Link to="/product">Mèo</Link>
                     </Menu.Item>
                     <Menu.Item
                       key="23"
-                      // onClick={() => handleSearch({ query: "Phụ kiện" })}
+                      onClick={() => handleSearch({ query: "Phụ kiện" })}
                     >
                       <Link to="/product">Phụ kiện</Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                   </SubMenu>
                 </Link>
                 <Menu.Item key="3">
