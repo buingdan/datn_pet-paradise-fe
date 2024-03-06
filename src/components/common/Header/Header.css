@@ -25,6 +25,40 @@
   justify-content: space-between;
   align-items: center;
 }
+.menunav{
+  color: white !important;
+  border-bottom-color: transparent !important; 
+}
+.menu-wrapper .menunav:hover{
+  color: #f9a529 !important; 
+  transition: none !important;
+}
+
+:where(.css-dev-only-do-not-override-p7e5j5).ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after
+{
+  border: transparent !important;
+  border-bottom-width: 0px;
+  border-bottom-color: transparent;
+}
+
+:where(.css-dev-only-do-not-override-p7e5j5).ant-menu-light.ant-menu-horizontal >.ant-menu-item::after{
+  border: transparent !important;
+  border-bottom-width: 0px;
+  border-bottom-color: transparent;
+}
+:where(.css-dev-only-do-not-override-p7e5j5).ant-menu .ant-menu-title-content{
+  transition: none !important;
+}
+
+.menusubnav:hover {
+  color: #f9a529 !important;
+  transition: none !important;
+}
+.subnavdetail:hover {
+  color: #f9a529 !important;
+  transition: none !important;
+}
+
 .header_nav {
   height: 100%;
   width: 404px;
@@ -38,9 +72,10 @@
 .header_nav .ant-menu-item:hover {
     color: #f9a529; 
 }
-  .header_nav .ant-menu-item-selected {
+
+.header_nav .ant-menu-item-selected {
     color: #f9a529;
-  }
+}
 .logo {
   width: 150px;
   height: 150px;
@@ -56,10 +91,16 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-size: 18px;
 }
 .actions button{
     background-color: transparent !important;
+    box-shadow: none;
+}
+.actions>span:hover button span{
+  color: #f9a529 !important;
+}
+.actions button:hover a{
+  color: #f9a529;
 }
 .actions span{
   color: white;
@@ -70,7 +111,8 @@
 }
 .avatar-container button{
   position: absolute;
-  left: 0;
+  left: 10px;
   bottom: 0;
-  transform: translate(0, 60%);
+  transform: translate(0, 70%);
 }
+

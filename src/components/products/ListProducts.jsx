@@ -16,6 +16,7 @@ function ListProducts() {
   const [open, setOpen] = useState(false);
   const products = useSelector((state) => state.productReducer.products);
   const pagination = useSelector((state) => state.productReducer.pagination);
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     dispatch(getProducts())
@@ -50,16 +51,18 @@ function ListProducts() {
     };
     console.log(">>>check params", params);
     dispatch(getProductsByName(params));
-  };
+  };  
+
   return (
     <div>
+      <h1 style={{textAlign:"center", marginBottom:"30px"}}>QUẢN LÝ SẢN PHẨM</h1>
       <Row style={{ marginBottom: 10 }}>
         <Col md={20}>
           <Form layout="inline" name="searchForm" onFinish={handleSearch}>
             <Form.Item name="query" initialValue={pagination && pagination.query ? pagination.query : undefined}>
-              <Input placeholder="Tìm kiếm..."></Input>
+              <Input placeholder="Tìm kiếm..." style={{borderColor: "#f4b915"}} ></Input>
             </Form.Item>
-            <Button type="primary" htmlType="submit">Tìm kiếm</Button>
+            <Button type="primary" htmlType="submit" style={{backgroundColor:"#0bbdcc"}}>Tìm kiếm</Button>
           </Form>
         </Col>
         <Col md={3} style={{display: "flex", justifyContent:"flex-end"}}>

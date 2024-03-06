@@ -49,6 +49,7 @@ useEffect(() => {
   }
   return (
     <div>
+      <h1 style={{textAlign:"center", marginBottom:"30px"}}>QUẢN LÝ DANH MỤC SẢN PHẨM</h1>
       <Table dataSource={categories} size="small" rowKey="id">
         <Column
           title="STT"

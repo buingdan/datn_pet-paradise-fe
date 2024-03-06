@@ -5,10 +5,10 @@ import "./Product.css";
 import { Button, Form, Menu, Rate } from "antd";
 import Input from "antd/es/input/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { clearProductByCategoryState, clearProductState, getProducts, getProductsByName } from "../../redux/actions/productAction";
+import { clearProductByCategoryState, clearProductState, getProducts, getProductsByCate, getProductsByName } from "../../redux/actions/productAction";
 import { useEffect } from "react";
 import ProductService from "../../services/productService";
-import { LikeOutlined } from "@ant-design/icons";
+import { LikeOutlined, SearchOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 function Product() {
   const dispatch = useDispatch();
@@ -30,6 +30,11 @@ function Product() {
     dispatch(getProductsByName(params));
     await new Promise((resolve) => setTimeout(resolve, 1000)); 
     navigate("/product");
+  };
+  const handleCategoryClick = async (categoryId) => {
+    dispatch(getProductsByCate(categoryId));
+    await new Promise((resolve) => setTimeout(resolve, 1000)); 
+    navigate("/product/category");
   };
   useEffect(() => {
     dispatch(getProducts());
@@ -60,10 +65,10 @@ function Product() {
                 pagination && pagination.query ? pagination.query : undefined
               }
             >
-              <Input placeholder="Tìm kiếm... "></Input>
+              <Input placeholder="Tìm kiếm... " ></Input>
             </Form.Item>
-            <Button type="primary" htmlType="submit">
-              Tìm kiếm
+            <Button type="primary" htmlType="submit" style={{backgroundColor:"#0bbdcc"}}>
+                <SearchOutlined />
             </Button>
           </Form>
           <h3>DANH MỤC SẢN PHẨM</h3>
@@ -116,6 +121,7 @@ function Product() {
               {
                 key: "3",
                 label: "Phụ kiện",
+                onClick : () => handleCategoryClick(3),
                 // onClick: () => handleSearch({ query: 'Chân ngắn' }, navigate("/product"))
               },
             ]}

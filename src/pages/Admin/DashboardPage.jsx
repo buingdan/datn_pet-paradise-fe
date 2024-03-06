@@ -6,7 +6,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme, Row, Col, Avatar, message } from "antd";
-import { IoIosHome, IoMdAddCircleOutline } from "react-icons/io";
+import { IoMdAddCircleOutline } from "react-icons/io";
 import {
   MdOutlineCategory,
   MdFormatListBulleted,
@@ -16,16 +16,16 @@ import {
   MdManageAccounts,
   MdOutlineSupervisorAccount,
   MdLogout,
-  MdCategory,
 } from "react-icons/md";
 import logo from "../../assets/img/logo.png"
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setError, setMessage } from "../../redux/actions/commonAction";
-import { clearAuthState, login } from "../../redux/actions/authAction";
+import { clearAuthState } from "../../redux/actions/authAction";
 const { Header, Sider, Content } = Layout;
 
 function DashboardPage() {
+  const email = useSelector((state) => state.auth.email);
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -179,8 +179,7 @@ function DashboardPage() {
               />
             </Col>
             <Col md={4}>
-              <Avatar size="default" icon={<UserOutlined />}></Avatar>Bui Nguyen
-              Dan
+              <Avatar size="default" icon={<UserOutlined />}></Avatar><span>{email}</span>
             </Col>
           </Row>
         </Header>

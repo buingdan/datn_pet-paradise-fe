@@ -36,6 +36,7 @@ function ListUsers() {
   //   };
   return (
     <div>
+      <h1 style={{textAlign:"center", marginBottom:"30px"}}>QUẢN LÝ TÀI KHOẢN</h1>
       {/* <Row style={{ marginBottom: 10 }}>
         <Col md={20}>
           <Form layout="inline" name="searchForm" onFinish={handleSearch}>

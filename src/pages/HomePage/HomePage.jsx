@@ -40,24 +40,35 @@ function HomePage() {
       <div className="container">
         <div className="category">
           <Link to="/product/category">
-            <div className="category-card dog" onClick={() => handleCategoryClick(2)}>
+            <div
+              className="category-card dog"
+              onClick={() => handleCategoryClick(2)}
+            >
               <h2>Chó</h2>
             </div>
           </Link>
           <Link to="/product/category">
-          <div className="category-card cat" onClick={() => handleCategoryClick(1)}>
-            <h2>Mèo</h2>
-          </div>
+            <div
+              className="category-card cat"
+              onClick={() => handleCategoryClick(1)}
+            >
+              <h2>Mèo</h2>
+            </div>
           </Link>
           <Link to="/product/category">
-          <div className="category-card access" onClick={() => handleCategoryClick(3)}>
-            <h2>Phụ kiện</h2>
-          </div>
+            <div
+              className="category-card access"
+              onClick={() => handleCategoryClick(3)}
+            >
+              <h2>Phụ kiện</h2>
+            </div>
           </Link>
         </div>
       </div>
       <div className="banner">
-        <img src={imgbanner} alt="imgbanner" />
+        <Link to="/product">
+          <img src={imgbanner} alt="imgbanner" />
+        </Link>
       </div>
       <div className="decor">
         <h1>Sản Phẩm</h1>

@@ -9,10 +9,12 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { clearAuthState } from "../../../redux/actions/authAction";
+import menuicon from "../../../assets/img/icon-menu.webp"
+import { getProductsByCate, getProductsByName } from "../../../redux/actions/productAction";
 
 const { SubMenu } = Menu;
 function Header({email}) {
@@ -30,124 +32,51 @@ function Header({email}) {
   const handleLogout = () => {
     dispatch(clearAuthState());
   };
+  const navigate = useNavigate();
+  const handleMenuItemClick = async (query) => {
+    navigate("/product");
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    dispatch(getProductsByName({ query: query }));
+  };
+  const handleCategoryClick = async(categoryId) => {
+    navigate("/product/category");
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    dispatch(getProductsByCate(categoryId));
+  };
   return (
     <header id="header">
       <div className="container">
         <div className="header_menu">
           <div className="menu-content">
             <div className="menu-wrapper">
-              {/* <Menu
-                className="header_nav"
-                // theme="dark"
-                mode="horizontal"
-                defaultSelectedKeys={["1"]}
-                items={[
-                  {
-                    key: "1",
-                    label: "Trang chủ",
-                    // onClick: () => navigate("/"),
-                  },
-                  {
-                    key: "2",
-                    label: "Sản phẩm",
-                    children: [
-                      {
-                        key: "21",
-                        label: "Chó",
-                        // onClick: () => navigate("/categories/add"),
-                        children: [
-                          {
-                            key: "211",
-                            label: "Corgi",
-                            // onClick: () => navigate("/categories/add"),
-                          },
-                          {
-                            key: "212",
-                            label: "Golden Retriever",
-                            // onClick: () => navigate("/categories/list"),
-                          },
-                          {
-                            key: "213",
-                            label: "Husky",
-                            // onClick: () => navigate("/products/list"),
-                          },
-                        ],
-                      },
-                      {
-                        key: "22",
-                        label: "Mèo",
-                        // onClick: () => navigate("/categories/list"),
-                        children: [
-                          {
-                            key: "221",
-                            label: "Anh lông ngắn",
-                            // onClick: () => navigate("/categories/add"),
-                          },
-                          {
-                            key: "222",
-                            label: "Tai cụp",
-                            // onClick: () => navigate("/categories/list"),
-                          },
-                          {
-                            key: "223",
-                            label: "Chân ngắn",
-                            // onClick: () => navigate("/products/list"),
-                          },
-                        ],
-                      },
-                      {
-                        key: "23",
-                        label: "Phụ kiện",
-                        // onClick: () => navigate("/products/list"),
-                      },
-                    ],
-                  },
-                  {
-                    key: "3",
-                    label: "Tin thú cưng",
-                  },
-                ]}
-              /> */}
               <Menu
                 className="header_nav"
                 mode="horizontal"
                 defaultSelectedKeys={["1"]}
               >
-                <Menu.Item key="1">
+                <Menu.Item key="1" className="menunav">
                   <Link to="/">Trang chủ</Link>
                 </Menu.Item>
+                <img src={menuicon} alt="menuicon" />
                 <Link to="/product">
-                  <SubMenu key="2" title="Sản phẩm">
-                    {/* <Menu.Item key="21">
-                      <Link to="/product">Chó</Link>
-                    </Menu.Item>
-                    <Menu.Item key="22">
-                      <Link to="/product">Mèo</Link>
-                    </Menu.Item>
-                    <Menu.Item key="23">
-                      <Link to="/product">Phụ kiện</Link>
-                    </Menu.Item> */}
-                    {/* <Menu.Item
-                      key="21"
-                      onClick={() => handleSearch({ query: "Chó" })}
-                    >
-                      <Link to="/product">Chó</Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key="22"
-                      onClick={() => handleSearch({ query: "Mèo" })}
-                    >
-                      <Link to="/product">Mèo</Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key="23"
-                      onClick={() => handleSearch({ query: "Phụ kiện" })}
-                    >
-                      <Link to="/product">Phụ kiện</Link>
-                    </Menu.Item> */}
+                  <SubMenu key="2" title="Sản phẩm" className="menunav">
+                  <SubMenu key="11" title="Chó" className="menusubnav">
+                    <Menu.Item key="111" className="subnavdetail" onClick={() => handleMenuItemClick('Corgi')}>Corgi</Menu.Item>
+                    <Menu.Item key="112"className="subnavdetail" onClick={() => handleMenuItemClick('Golden Retriever')}>Golden Retriever</Menu.Item>
+                    <Menu.Item key="113" className="subnavdetail" onClick={() => handleMenuItemClick('Husky')}>Husky</Menu.Item>
+                  </SubMenu>
+                  <SubMenu key="22" title="Mèo" className="menusubnav">
+                    <Menu.Item key="221" className="subnavdetail" onClick={() => handleMenuItemClick('Anh lông ngắn')}>Anh lông ngắn</Menu.Item>
+                    <Menu.Item key="222" className="subnavdetail" onClick={() => handleMenuItemClick('Tai cụp')}>Tai cụp</Menu.Item>
+                    <Menu.Item key="223" className="subnavdetail" onClick={() => handleMenuItemClick('Chân ngắn')}>Chân ngắn</Menu.Item>
+                  </SubMenu>
+                  <Menu.Item key="23" className="menusubnav" onClick={() =>handleCategoryClick(3)}>
+                    <Link to="/product">Phụ kiện</Link>
+                  </Menu.Item>
                   </SubMenu>
                 </Link>
-                <Menu.Item key="3">
+                <img src={menuicon} alt="menuicon" />
+                <Menu.Item key="3" className="menunav">
                   <Link to="/newletter">Tin thú cưng</Link>
                 </Menu.Item>
               </Menu>
@@ -158,15 +87,15 @@ function Header({email}) {
               </div>
               <div className="actions">
                 <Badge count={5}>
-                  <Button type="text" icon={<ShoppingCartOutlined />} />
+                  <Button type="text" icon={<ShoppingCartOutlined /> } />
                 </Badge>
                 {isAuthenticated ? (
                  <div className="avatar-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                  <Avatar size="default" icon={<UserOutlined />} />
                  <span>{email}</span>
                  {isHovered && (
-                   <Button type="primary" onClick={handleLogout}>
-                     <Link to="/login">Đăng xuất</Link>
+                   <Button type="primary" onClick={handleLogout} >
+                     <Link to="/login" className="login" >Đăng xuất</Link>
                    </Button>
                  )}
                </div>

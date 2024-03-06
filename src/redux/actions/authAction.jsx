@@ -51,7 +51,7 @@ export const login = (email, password) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: COMMON_ERROR_SET,
-      payload: error.response?.data?.message || "Phân quyền thất bại",
+      payload: error.response?.data?.message 
     });
 
     dispatch({

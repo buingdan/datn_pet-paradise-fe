@@ -52,6 +52,8 @@ function AddOrEditCategory() {
 
   return (
     <div>
+      {!category.id && (<h1 style={{textAlign:"center", marginBottom:"30px"}}>THÊM DANH MỤC SẢN PHẨM</h1>)}
+      {category.id && (<h1 style={{textAlign:"center", marginBottom:"30px"}}>SỬA DANH MỤC SẢN PHẨM</h1>)}
       <Form
         layout="vertical"
         className="form"
@@ -85,7 +87,7 @@ function AddOrEditCategory() {
               <Button
                 htmlType="submit"
                 type="primary"
-                style={{ float: "right" }}
+                style={{ float: "right", backgroundColor: "#0bbdcc" }}
                 loading={isLoading}
               >
                 Lưu
@@ -102,7 +104,7 @@ function AddOrEditCategory() {
                   <Button
                     htmlType="button"
                     type="primary"
-                    style={{ float: "right" }}
+                    style={{ float: "right", backgroundColor: "#0bbdcc" }}
                     loading={isLoading}
                   >
                     Sửa
