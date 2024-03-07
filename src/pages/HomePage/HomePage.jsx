@@ -16,6 +16,8 @@ import {
 import ProductService from "../../services/productService";
 import { LikeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { FaSearchPlus } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
 function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
@@ -97,6 +99,18 @@ function HomePage() {
                   <div className="product-card-act-down">
                     <p>{product.name}</p>
                     <LikeOutlined />
+                  </div>
+                </div>
+                <div className="product-card-action">
+                  <div className="product-card-search">
+                    <div className="product-card-search-bor">
+                      <Link><FaSearchPlus />| Xem ngay</Link>
+                    </div>
+                  </div>
+                  <div className="product-card-search">
+                    <div className="product-card-search-bor">
+                    <Link><IoCartOutline />| Mua ngay</Link>
+                    </div>
                   </div>
                 </div>
               </div>

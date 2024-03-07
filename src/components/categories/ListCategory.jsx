@@ -6,7 +6,8 @@ import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from "@ant-de
 import { useDispatch, useSelector } from "react-redux";
 import { clearCategoryState, deleteCategory, getCategories } from "../../redux/actions/categoryAction";
 import { useNavigate } from "react-router-dom";
-
+import { CiEdit } from "react-icons/ci";
+import { AiOutlineDelete } from "react-icons/ai";
 function ListCategory() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categoryReducer.categories);
@@ -76,10 +77,12 @@ useEffect(() => {
           render={(_, record)=>(
             <Space size='middle'>
                 <Button key={record.key} type="primary" size="small" onClick={() => editCategory(record)}>
-                    <EditOutlined style={{marginRight:8}} />
+                    {/* <EditOutlined style={{marginRight:8}} /> */}
+                    <CiEdit  style={{color:"green"}}/>
                 </Button>
                 <Button key={record.key} type="primary" danger size="small" onClick={() => openDeleteConfirmModal(record)}>
-                    <DeleteOutlined style={{marginRight:8}} />
+                    {/* <DeleteOutlined style={{marginRight:8}} /> */}
+                    <AiOutlineDelete style={{color:"red"}}/>
                 </Button>
             </Space>
           )}

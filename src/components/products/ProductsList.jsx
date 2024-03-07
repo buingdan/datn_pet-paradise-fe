@@ -5,6 +5,8 @@ import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from "@ant-de
 import { deleteProduct, getProducts } from "../../redux/actions/productAction";
 import { useDispatch } from "react-redux";
 import ProductService from "../../services/productService";
+import { CiEdit } from "react-icons/ci";
+import { AiOutlineDelete } from "react-icons/ai";
 function ProductList(props) {
   const {dataSource, onEditClick} = props
   const dispatch = useDispatch();
@@ -30,14 +32,14 @@ function ProductList(props) {
 
   return (
     <div>
-      <Table dataSource={dataSource} size="small" rowKey="id" pagination={false}>
-        <Column
+      <Table dataSource={dataSource} size="small" rowKey="id" pagination={false} >
+        {/* <Column
           title="STT"
           key="id"
           dataIndex="id"
           width={40}
           align="center"
-        ></Column>
+        ></Column> */}
         <Column title="Tên sản phẩm" key="name" dataIndex="name">
         </Column>
         <Column
@@ -72,7 +74,8 @@ function ProductList(props) {
                 size="small"
                 onClick={() => onEditClick(record)}
               >
-                <EditOutlined style={{ marginRight: 8 }} />
+                {/* <EditOutlined style={{ marginRight: 8 }} /> */}
+                <CiEdit  style={{color:"green"}}/>
               </Button>
               <Button
                 key={record.key}
@@ -81,7 +84,8 @@ function ProductList(props) {
                 size="small"
                 onClick={() => openDeleteConfirmModal(record)} 
               >
-                <DeleteOutlined style={{ marginRight: 8 }} />
+                {/* <DeleteOutlined style={{ marginRight: 8 }} /> */}
+                <AiOutlineDelete style={{color:"red"}}/>
               </Button>
             </Space>
           )}

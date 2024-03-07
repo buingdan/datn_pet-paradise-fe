@@ -9,7 +9,9 @@ import { clearProductByCategoryState, clearProductState, getProducts, getProduct
 import { useEffect } from "react";
 import ProductService from "../../services/productService";
 import { LikeOutlined, SearchOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaSearchPlus } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
 function Product() {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.productReducer.pagination);
@@ -146,6 +148,18 @@ function Product() {
                   <div className="product-card-act-down">
                     <p>{product.name}</p>
                     <LikeOutlined />
+                  </div>
+                </div>
+                <div className="product-card-action">
+                  <div className="product-card-search">
+                    <div className="product-card-search-bor">
+                      <Link><FaSearchPlus />| Xem ngay</Link>
+                    </div>
+                  </div>
+                  <div className="product-card-search">
+                    <div className="product-card-search-bor">
+                    <Link><IoCartOutline />| Mua ngay</Link>
+                    </div>
                   </div>
                 </div>
               </div>

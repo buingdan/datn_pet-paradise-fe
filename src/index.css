@@ -11,3 +11,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#tableRow {
+  border: 1px black solid;
+}
+
+.ant-table-tbody>tr:nth-child(odd) {
+  background-color: #dfdede !important;
+}
+
+.ant-table-tbody>tr:nth-child(even) {
+  background-color: #efefef !important;
+}
+
+.ant-table-thead th {
+  font-weight: bold;
+  background-color: #a1a1a1 !important;
+}
+
+.ant-table-tbody>tr:hover {
+  cursor: pointer;
+}
+:where(.css-dev-only-do-not-override-p7e5j5).ant-btn-primary {
+  background: none;
+  box-shadow: none;
+}
+:where(.css-dev-only-do-not-override-p7e5j5).ant-btn-primary.ant-btn-dangerous{
+  background: none;
+  box-shadow: none;
+}
