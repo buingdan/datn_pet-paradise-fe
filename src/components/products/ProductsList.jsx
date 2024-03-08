@@ -37,7 +37,7 @@ function ProductList(props) {
   return (
     <div>
       <Table dataSource={dataSource} size="small" rowKey="id" pagination={false} >
-        <Column title="Tên sản phẩm" key="name" dataIndex="name">
+        <Column title="Tên sản phẩm" key="name" dataIndex="name" sorter={(a, b) => a.name.localeCompare(b.name)}>
         </Column>
         <Column
           title="Hình ảnh"
@@ -60,8 +60,8 @@ function ProductList(props) {
               currency: 'VND',
             }).format(price)}
           </span>
-        )}></Column>
-        <Column title="Ngày tạo" key="create_date" dataIndex="create_date"></Column>
+        )} sorter={(a, b) => a.price - b.price}></Column>
+        <Column title="Ngày tạo" key="create_date" dataIndex="create_date" sorter={(a, b) => new Date(a.create_date) - new Date(b.create_date)}></Column>
         <Column title="Số lượng" key="quantityInStock" dataIndex="quantity_in_stock"></Column>
         <Column title="Giảm giá" key="discount" dataIndex="discount"></Column>
 
