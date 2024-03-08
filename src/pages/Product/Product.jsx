@@ -2,11 +2,11 @@ import Footer from "../../components/common/Footer/Footer";
 import Header from "../../components/common/Header/Header";
 import imgdecor from "../../assets/img/img_decor.png";
 import "./Product.css";
-import { Button, Form, Menu, Rate } from "antd";
+import { Button, Form, Image, InputNumber, Menu, Modal, Rate } from "antd";
 import Input from "antd/es/input/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { clearProductByCategoryState, clearProductState, getProducts, getProductsByCate, getProductsByName } from "../../redux/actions/productAction";
-import { useEffect } from "react";
+import { clearProductByCategoryState, clearProductState, getProduct, getProducts, getProductsByCate, getProductsByName } from "../../redux/actions/productAction";
+import { useEffect, useState } from "react";
 import ProductService from "../../services/productService";
 import { LikeOutlined, SearchOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,10 +16,13 @@ function Product() {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.productReducer.pagination);
   const products = useSelector((state) => state.productReducer.products);
+  const product = useSelector((state) => state.productReducer.product);
   const productsByCategory = useSelector((state) => state.productReducer.products_by_category);
   const productsToDisplay = productsByCategory && productsByCategory.length > 0 ? productsByCategory : products;
   const email = useSelector((state) => state.auth.email);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [keyboard, setKeyboard] = useState(true);
   const handleSearch = async (value) => {
     const params = {
       query: value.query || "",
@@ -37,6 +40,14 @@ function Product() {
     dispatch(getProductsByCate(categoryId));
     await new Promise((resolve) => setTimeout(resolve, 1000)); 
     navigate("/product/category");
+  };
+  const showModal = (productId) => {
+    setOpen(true);
+    dispatch(getProduct(productId));
+  };
+  const handleCancel = (e) => {
+    console.log(e);
+    setOpen(false);
   };
   useEffect(() => {
     dispatch(getProducts());
@@ -153,7 +164,7 @@ function Product() {
                 <div className="product-card-action">
                   <div className="product-card-search">
                     <div className="product-card-search-bor">
-                      <Link><FaSearchPlus />| Xem ngay</Link>
+                      <Link onClick={() => showModal(product.id)}><FaSearchPlus />| Xem ngay</Link>
                     </div>
                   </div>
                   <div className="product-card-search">
@@ -166,6 +177,58 @@ function Product() {
             ))}
           </div>
         </div>
+        <Modal
+        // title="Thông tin sản phẩm"
+        open={open}
+        onCancel={handleCancel}
+        footer={null}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {product && (
+          <>
+            <div
+              className="product-detail-img"
+              style={{
+                width: "380px",
+                height: "460px",
+                marginRight: "30px",
+              }}
+            >
+              <Image
+                src={ProductService.getProductLogoUrl(product.image)}
+                style={{objectFit:"cover", height:"460px"}}
+              ></Image>
+            </div>
+            <div
+              className="product-detail-infor"
+              style={{ width: "450px", height: "460px" }}
+            >
+              <h1>{product.name}</h1>
+              <p style={{fontSize: "18px"}}>
+                <span style={{fontSize: "14px", verticalAlign: "top",marginRight: "2px"}}>₫</span>
+                {product.price && product.price.toLocaleString("vi-VN")}{" "}
+              </p>
+              <span style={{ marginRight: "5px" }}>Số lượng:</span>
+              <InputNumber
+                min={1}
+                max={10}
+                keyboard={keyboard}
+                defaultValue={3}
+                style={{ width: "45px" }}
+              />
+              <div className="product-detail-cart">
+                <div className="product-detail-cart-bor">
+                  <Link>THÊM VÀO GIỎ HÀNG</Link>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </Modal>
       </div>
       <Footer></Footer>
     </div>

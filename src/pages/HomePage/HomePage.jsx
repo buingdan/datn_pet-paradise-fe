@@ -6,10 +6,11 @@ import imgbanner from "../../assets/img/banner.webp";
 import imgnewletter1 from "../../assets/img/newletter1.webp";
 import imgnewletter2 from "../../assets/img/newletter2.webp";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { Rate } from "antd";
+import { useEffect, useState } from "react";
+import { Image, InputNumber, Modal, Rate } from "antd";
 import {
   clearProductState,
+  getProduct,
   getProducts,
   getProductsByCate,
 } from "../../redux/actions/productAction";
@@ -21,8 +22,10 @@ import { IoCartOutline } from "react-icons/io5";
 function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
+  const product = useSelector((state) => state.productReducer.product);
   const email = useSelector((state) => state.auth.email);
-
+  const [open, setOpen] = useState(false);
+  const [keyboard, setKeyboard] = useState(true);
   useEffect(() => {
     dispatch(getProducts());
     return () => {
@@ -31,6 +34,15 @@ function HomePage() {
   }, []);
   const handleCategoryClick = (categoryId) => {
     dispatch(getProductsByCate(categoryId));
+  };
+
+  const showModal = (productId) => {
+    setOpen(true);
+    dispatch(getProduct(productId));
+  };
+  const handleCancel = (e) => {
+    console.log(e);
+    setOpen(false);
   };
   return (
     <div className="home-container">
@@ -104,12 +116,16 @@ function HomePage() {
                 <div className="product-card-action">
                   <div className="product-card-search">
                     <div className="product-card-search-bor">
-                      <Link><FaSearchPlus />| Xem ngay</Link>
+                      <Link onClick={() => showModal(product.id)}>
+                        <FaSearchPlus />| Xem ngay
+                      </Link>
                     </div>
                   </div>
                   <div className="product-card-search">
                     <div className="product-card-search-bor">
-                    <Link><IoCartOutline />| Mua ngay</Link>
+                      <Link>
+                        <IoCartOutline />| Mua ngay
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -117,6 +133,58 @@ function HomePage() {
             ))}
         </div>
       </div>
+      <Modal
+        // title="Thông tin sản phẩm"
+        open={open}
+        onCancel={handleCancel}
+        footer={null}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {product && (
+          <>
+            <div
+              className="product-detail-img"
+              style={{
+                width: "380px",
+                height: "460px",
+                marginRight: "30px",
+              }}
+            >
+              <Image
+                src={ProductService.getProductLogoUrl(product.image)}
+                style={{objectFit:"cover", height:"460px"}}
+              ></Image>
+            </div>
+            <div
+              className="product-detail-infor"
+              style={{ width: "450px", height: "460px" }}
+            >
+              <h1>{product.name}</h1>
+              <p style={{fontSize: "18px"}}>
+                <span style={{fontSize: "14px", verticalAlign: "top",marginRight: "2px"}}>₫</span>
+                {product.price && product.price.toLocaleString("vi-VN")}{" "}
+              </p>
+              <span style={{ marginRight: "5px" }}>Số lượng:</span>
+              <InputNumber
+                min={1}
+                max={10}
+                keyboard={keyboard}
+                defaultValue={3}
+                style={{ width: "45px" }}
+              />
+              <div className="product-detail-cart">
+                <div className="product-detail-cart-bor">
+                  <Link>THÊM VÀO GIỎ HÀNG</Link>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </Modal>
       <div className="decor">
         <h1>Tin Thú Cưng</h1>
         <img src={imgdecor} alt="imgdecor" />
@@ -147,7 +215,7 @@ function HomePage() {
             <img src={imgnewletter2} alt="imgbanner" />
             <div className="newletter_content">
               <h3>
-                <a href="#">
+                <a href="#" class="showMoreLink">
                   Tình yêu giống như một con chó, mình đuổi thì nó chạy mình
                   chạy thì nó lại đuổi
                 </a>
