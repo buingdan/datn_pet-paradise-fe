@@ -2,7 +2,7 @@ import Footer from "../../components/common/Footer/Footer";
 import Header from "../../components/common/Header/Header";
 import imgdecor from "../../assets/img/img_decor.png";
 import "./Product.css";
-import { Button, Form, Image, InputNumber, Menu, Modal, Rate } from "antd";
+import { Button, Form, Image, InputNumber, Menu, Modal, Pagination, Rate } from "antd";
 import Input from "antd/es/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { clearProductByCategoryState, clearProductState, getProduct, getProducts, getProductsByCate, getProductsByName } from "../../redux/actions/productAction";
@@ -23,11 +23,12 @@ function Product() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [keyboard, setKeyboard] = useState(true);
+  const [inputValue, setInputValue] = useState("");
   const handleSearch = async (value) => {
     const params = {
       query: value.query || "",
-      size: pagination.size,
     };
+    console.log(">>> trước inputValue", inputValue);
     console.log(">>>check value", value);
     console.log(">>>check params", params);
     dispatch(clearProductByCategoryState());
@@ -35,6 +36,8 @@ function Product() {
     dispatch(getProductsByName(params));
     await new Promise((resolve) => setTimeout(resolve, 1000)); 
     navigate("/product");
+    setInputValue("");
+    console.log(">>> sau inputValue", inputValue);
   };
   const handleCategoryClick = async (categoryId) => {
     dispatch(getProductsByCate(categoryId));
@@ -49,8 +52,16 @@ function Product() {
     console.log(e);
     setOpen(false);
   };
+  const onChange = (pageNumber, pageSize) => {
+    const params = {
+      currentPage: pageNumber,
+      limit: pageSize,
+    };
+    console.log(">>>check params", params);
+    dispatch(getProductsByName(params));
+  }; 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProductsByName());
     return () => {
       dispatch(clearProductState());
     };
@@ -78,7 +89,7 @@ function Product() {
                 pagination && pagination.query ? pagination.query : undefined
               }
             >
-              <Input placeholder="Tìm kiếm... " ></Input>
+              <Input placeholder="Tìm kiếm... " value={inputValue} onChange={(e) => setInputValue(e.target.value)}></Input>
             </Form.Item>
             <Button type="primary" htmlType="submit" style={{backgroundColor:"#0bbdcc"}}>
                 <SearchOutlined />
@@ -177,6 +188,7 @@ function Product() {
             ))}
           </div>
         </div>
+        
         <Modal
         // title="Thông tin sản phẩm"
         open={open}
@@ -230,6 +242,14 @@ function Product() {
         )}
       </Modal>
       </div>
+      <Pagination
+            defaultCurrent={pagination.currentPage}
+            defaultPageSize={9}
+            total={pagination.totalRecord}
+            showSizeChanger="true"
+            onChange={onChange}
+            style={{marginTop:"120px", display:"flex", justifyContent: "center"}}
+          ></Pagination>
       <Footer></Footer>
     </div>
   );

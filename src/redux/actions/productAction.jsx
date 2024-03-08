@@ -67,48 +67,105 @@ export const insertProduct = (product, navigate) => async (dispatch) => {
   navigate("/admin/products/list");
 };
 
-export const getProducts = () => async (dispatch) => {
-  const service = new ProductService();
+//   const service = new ProductService();
 
-  try {
-    console.log("get products: ");
+//   try {
+//     console.log("get products: ");
 
-    dispatch({
-      type: COMMON_LOADING_SET,
-      payload: true,
-    });
+//     dispatch({
+//       type: COMMON_LOADING_SET,
+//       payload: true,
+//     });
 
-    const response = await service.getProducts();
+//     const response = await service.getProducts();
 
-    if (response.status === 200) {
-      dispatch({
-        type: PRODUCTS_SET,
-        payload: response.data,
-      });
-    } else {
-      dispatch({
-        type: COMMON_ERROR_SET,
-        payload: response.message,
-      });
-    }
+//     if (response.status === 200) {
+//       dispatch({
+//         type: PRODUCTS_SET,
+//         payload: response.data,
+//       });
+//     } else {
+//       dispatch({
+//         type: COMMON_ERROR_SET,
+//         payload: response.message,
+//       });
+//     }
 
-    console.log(">>check respone get all", response);
-  } catch (error) {
-    console.log("Error" + error);
-    dispatch({
-      type: COMMON_ERROR_SET,
-      payload: error.response.data
-        ? error.response.data.message
-        : error.message,
-    });
-  }
+//     console.log(">>check respone get all", response);
+//   } catch (error) {
+//     console.log("Error" + error);
+//     dispatch({
+//       type: COMMON_ERROR_SET,
+//       payload: error.response.data
+//         ? error.response.data.message
+//         : error.message,
+//     });
+//   }
 
-  dispatch({
-    type: COMMON_LOADING_SET,
-    payload: false,
-  });
-};
+//   dispatch({
+//     type: COMMON_LOADING_SET,
+//     payload: false,
+//   });
+// };
 
+// export const getProductsByName = (params) => async (dispatch) => {
+//   const service = new ProductService();
+
+//   try {
+//     console.log("get products by name: ");
+
+//     dispatch({
+//       type: COMMON_LOADING_SET,
+//       payload: true,
+//     });
+
+//     const response = await service.getProductsByName(params);
+
+//     if (response.status === 200) {
+//       dispatch({
+//         type: PRODUCTS_SET,
+//         payload: response.data.content,
+//       });
+
+//       const {size, totalPages, totalElements, pageable} = response.data
+
+//       const pagination = {
+//         size: size,
+//         page: pageable.pageNumber,
+//         query: params.query,
+//         totalPages: totalPages,
+//         totalElements: totalElements
+//       }
+
+//       dispatch({
+//         type: PRODUCT_SET_PAGEABLE,
+//         payload: pagination,
+//       })
+
+//       console.log(">>check pagination", pagination);
+//     } else {
+//       dispatch({
+//         type: COMMON_ERROR_SET,
+//         payload: response.message,
+//       });
+//     }
+    
+//     console.log(">>check respone get all", response);
+//   } catch (error) {
+//     console.log("Error" + error);
+//     dispatch({
+//       type: COMMON_ERROR_SET,
+//       payload: error.response.data
+//         ? error.response.data.message
+//         : error.message,
+//     });
+//   }
+
+//   dispatch({
+//     type: COMMON_LOADING_SET,
+//     payload: false,
+//   });
+// };
 export const getProductsByName = (params) => async (dispatch) => {
   const service = new ProductService();
 
@@ -125,25 +182,20 @@ export const getProductsByName = (params) => async (dispatch) => {
     if (response.status === 200) {
       dispatch({
         type: PRODUCTS_SET,
-        payload: response.data.content,
+        payload: response.data.list,
       });
-
-      const {size, totalPages, totalElements, pageable} = response.data
-
+      const {currentPage, totalRecord} = response.data
+      console.log(">>>check currentPage",currentPage);
+      console.log(">>>check totalRecord",totalRecord);
       const pagination = {
-        size: size,
-        page: pageable.pageNumber,
-        query: params.query,
-        totalPages: totalPages,
-        totalElements: totalElements
+        currentPage: currentPage,
+        totalRecord: totalRecord
       }
-
       dispatch({
         type: PRODUCT_SET_PAGEABLE,
-        payload: pagination,
+        payload: pagination
       })
-
-      console.log(">>check pagination", pagination);
+      console.log(">>>check pagination", pagination);
     } else {
       dispatch({
         type: COMMON_ERROR_SET,

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearProduct,
   getProduct,
-  getProducts,
+  getProductsByName,
   insertProduct,
   updateProduct,
 } from "../../redux/actions/productAction";
@@ -19,43 +19,24 @@ function ProductForm(props) {
   const [fileList, setFileList] = useState([]);
   const isLoading = useSelector((state) => state.commonReducer.isLoading);
   const product = useSelector((state) => state.productReducer.product);
-  const products = useSelector((state) => state.productReducer.products);
   const { id } = useParams();
   const form = createRef();
-  // const onCreate = (values) => {
-  //   console.log(">>>check check", values);
-  //   console.log(">>>check product.id", product.id);
-  //   console.log(">>>check product", product);
-  //   if (!product.id) {
-  //     dispatch(insertProduct(values, navigate)).then(() => {
-  //       dispatch(getProducts());
-  //       onCancel();
-  //     });
-  //   } else {
-  //     dispatch(updateProduct(product.id, values, navigate)).then(() => {
-  //       dispatch(getProducts());
-  //       onCancel();
-  //     });
-  //   }
-  // };
-  // console.log(">>>check image:", product.image);
   const onCreate = (values) => {
     console.log(">>>check check", values);
     console.log(">>>check product.id", product.id);
     console.log(">>>check product", product);
     if (!product.id) {
       dispatch(insertProduct(values, navigate)).then(() => {
-        dispatch(getProducts());
+        dispatch(getProductsByName());
         onCancel();
       });
     } else {
       dispatch(updateProduct(product.id, values, navigate)).then(() => {
-        dispatch(getProducts());
+        dispatch(getProductsByName());
         onCancel();
       });
     }
   };
-  // console.log(">>>check1:",manufacturer.image);
 
   let tittle = "Tạo mới danh mục sản phẩm";
   let okText = "Thêm";

@@ -16,12 +16,6 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userRoles = useSelector((state) => state.auth.roles);
-  // useEffect(() => {
-  //       dispatch(login(username, password));
-  //       return () => {
-  //         dispatch(clearAuthState());
-  //       };
-  // }, []);
 
   const handleTogglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -36,9 +30,6 @@ function Login() {
   };
   useEffect(() => {
     dispatch(login(username, password));
-    // return () => {
-    //   dispatch(clearAuthState());
-    // };
   }, [username, password]);
   
   const handleLogin = async () => {

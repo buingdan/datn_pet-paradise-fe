@@ -17,7 +17,7 @@ export default class ProductService{
         
         return await axios.post(API_PRODUCT, formData);
     };
-
+ 
     getProducts = async () => {
         return await axios.get(API_PRODUCT);
     };
@@ -26,7 +26,7 @@ export default class ProductService{
     };
 
     getProductsByName = async (params) => {
-        return await axios.get(API_PRODUCT + "/find", { params });
+        return await axios.get(API_PRODUCT + "/get/find", { params });
     };
 
     deleteProduct = async (id) => {

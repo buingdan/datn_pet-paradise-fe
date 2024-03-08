@@ -1,8 +1,7 @@
 import { Button, Modal, Skeleton, Space, Table, Tag } from "antd";
 import React, { useEffect } from "react";
-// import ButtonContentDB from "../common/ButtonContentDB";
 import Column from "antd/es/table/Column";
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCategoryState, deleteCategory, getCategories } from "../../redux/actions/categoryAction";
 import { useNavigate } from "react-router-dom";
@@ -30,12 +29,16 @@ useEffect(() => {
   const openDeleteConfirmModal = (category) => {
     console.log(category)
 
-    const message = "Bạn có muốn xóa sản phẩm " + category.name;
+    const message = "Bạn có muốn xóa danh mục sản phẩm: " + category.name;
 
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined/>,
       content: message,
+      okButtonProps: {
+        type: 'primary',
+        danger: true
+      },
       onOk: () => {
         dispatch(deleteCategory(category.id))
           .then(() => dispatch(getCategories()));
@@ -76,12 +79,10 @@ useEffect(() => {
           align="center"
           render={(_, record)=>(
             <Space size='middle'>
-                <Button key={record.key} type="primary" size="small" onClick={() => editCategory(record)}>
-                    {/* <EditOutlined style={{marginRight:8}} /> */}
+                <Button key={record.key} type="primary" size="small" onClick={() => editCategory(record)} style={{background: "none",boxShadow: "none"}}>
                     <CiEdit  style={{color:"green"}}/>
                 </Button>
-                <Button key={record.key} type="primary" danger size="small" onClick={() => openDeleteConfirmModal(record)}>
-                    {/* <DeleteOutlined style={{marginRight:8}} /> */}
+                <Button key={record.key} type="primary" danger size="small" onClick={() => openDeleteConfirmModal(record)} style={{background: "none",boxShadow: "none"}}>
                     <AiOutlineDelete style={{color:"red"}}/>
                 </Button>
             </Space>

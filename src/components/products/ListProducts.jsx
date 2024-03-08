@@ -6,7 +6,6 @@ import {
   clearProduct,
   clearProductState,
   getProduct,
-  getProducts,
   getProductsByName,
 } from "../../redux/actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,10 +15,9 @@ function ListProducts() {
   const [open, setOpen] = useState(false);
   const products = useSelector((state) => state.productReducer.products);
   const pagination = useSelector((state) => state.productReducer.pagination);
-  const [inputValue, setInputValue] = useState('');
-
+  const [inputValue, setInputValue] = useState("");
   useEffect(() => {
-    dispatch(getProducts())
+    dispatch(getProductsByName())
 
     return () => {
       dispatch(clearProductState());
@@ -37,17 +35,16 @@ function ListProducts() {
   const handleSearch = (value) => {
     const params = {
       query: value.query || "",
-      size: pagination.size,
     };
     console.log(">>>check params", params);
     dispatch(getProductsByName(params));
+    setInputValue("");
   };
 
   const onChange = (pageNumber, pageSize) => {
     const params = {
-      query: pagination.query,
-      page: pageNumber - 1,
-      size: pageSize,
+      currentPage: pageNumber,
+      limit: pageSize,
     };
     console.log(">>>check params", params);
     dispatch(getProductsByName(params));
@@ -59,8 +56,8 @@ function ListProducts() {
       <Row style={{ marginBottom: 10 }}>
         <Col md={20}>
           <Form layout="inline" name="searchForm" onFinish={handleSearch}>
-            <Form.Item name="query" initialValue={pagination && pagination.query ? pagination.query : undefined}>
-              <Input placeholder="Tìm kiếm..." style={{borderColor: "#f4b915"}} ></Input>
+            <Form.Item name="query">
+              <Input placeholder="Tìm kiếm..." style={{borderColor: "#f4b915"}} value={inputValue} onChange={(e) => setInputValue(e.target.value)} ></Input>
             </Form.Item>
             <Button type="primary" htmlType="submit" style={{backgroundColor:"#0bbdcc"}}>Tìm kiếm</Button>
           </Form>
@@ -82,15 +79,14 @@ function ListProducts() {
       <Row style={{ marginTop: 20 }}>
         <Col md={24} style={{ textAlign: "right" }}>
           <Pagination
-            defaultCurrent={pagination.page}
-            defaultPageSize={pagination.size}
-            total={pagination.totalElements}
+            defaultCurrent={pagination.currentPage}
+            defaultPageSize={9}
+            total={pagination.totalRecord}
             showSizeChanger="true"
             onChange={onChange}
           ></Pagination>
         </Col>
       </Row>
-
       <ProductForm
         open={open}
         onCancel={() => {

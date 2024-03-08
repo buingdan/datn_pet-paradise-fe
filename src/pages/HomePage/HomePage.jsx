@@ -11,8 +11,8 @@ import { Image, InputNumber, Modal, Rate } from "antd";
 import {
   clearProductState,
   getProduct,
-  getProducts,
   getProductsByCate,
+  getProductsByName,
 } from "../../redux/actions/productAction";
 import ProductService from "../../services/productService";
 import { LikeOutlined } from "@ant-design/icons";
@@ -27,7 +27,7 @@ function HomePage() {
   const [open, setOpen] = useState(false);
   const [keyboard, setKeyboard] = useState(true);
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProductsByName());
     return () => {
       dispatch(clearProductState());
     };
@@ -45,7 +45,7 @@ function HomePage() {
     setOpen(false);
   };
   return (
-    <div className="home-container">
+    <div id="home-container">
       <Header email={email}></Header>
       <div className="decor">
         <h1>Danh Mục</h1>
@@ -137,12 +137,8 @@ function HomePage() {
         // title="Thông tin sản phẩm"
         open={open}
         onCancel={handleCancel}
-        footer={null}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        // footer={null}
+        className="modal-home"
       >
         {product && (
           <>

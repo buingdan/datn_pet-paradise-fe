@@ -40,12 +40,6 @@ function DashboardPage() {
   const msg = useSelector((state) => state.commonReducer.message);
   const err = useSelector((state) => state.commonReducer.error);
 
-  // useEffect(() => {
-  //   dispatch(login("admin@gmail.com", "12345"));
-  //   return () => {
-  //     dispatch(clearAuthState());
-  //   };
-  // }, []);
   useEffect(() => {
     if (msg) {
       dispatch(setMessage(""));
@@ -82,18 +76,12 @@ function DashboardPage() {
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={[
-            // {
-            //   key: "1",
-            //   icon: <IoIosHome />,
-            //   label: "Trang chủ",
-            //   // onClick: () => navigate("/"),
             {
               key: "1",
               icon: <MdInventory2 />,
               label: "Sản phẩm",
               onClick: () => navigate("/admin/products/list"),
             },
-            // },
             {
               key: "2",
               icon: <MdOutlineCategory />,

@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Image, Modal, Space, Table, Tag } from "antd";
 import Column from "antd/es/table/Column";
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { deleteProduct, getProducts } from "../../redux/actions/productAction";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { deleteProduct, getProductsByName } from "../../redux/actions/productAction";
 import { useDispatch } from "react-redux";
 import ProductService from "../../services/productService";
 import { CiEdit } from "react-icons/ci";
@@ -21,9 +21,13 @@ function ProductList(props) {
       title: 'Confirm',
       icon: <ExclamationCircleOutlined/>,
       content: message,
+      okButtonProps: {
+        type: 'primary',
+        danger: true
+      },
       onOk: () => {
         dispatch(deleteProduct(product.id))
-          .then(() => dispatch(getProducts()));
+          .then(() => dispatch(getProductsByName()));
       },
       okText: "Delete",
       cancelText: "Cancel",
@@ -33,13 +37,6 @@ function ProductList(props) {
   return (
     <div>
       <Table dataSource={dataSource} size="small" rowKey="id" pagination={false} >
-        {/* <Column
-          title="STT"
-          key="id"
-          dataIndex="id"
-          width={40}
-          align="center"
-        ></Column> */}
         <Column title="Tên sản phẩm" key="name" dataIndex="name">
         </Column>
         <Column
@@ -55,11 +52,18 @@ function ProductList(props) {
           )}
          
         ></Column>
-        <Column title="Giá" key="price" dataIndex="price"></Column>
+        <Column title="Giá" key="price" dataIndex="price" 
+        render={(price) => (
+          <span>
+            {new Intl.NumberFormat('vi-VN', {
+              style: 'currency',
+              currency: 'VND',
+            }).format(price)}
+          </span>
+        )}></Column>
         <Column title="Ngày tạo" key="create_date" dataIndex="create_date"></Column>
         <Column title="Số lượng" key="quantityInStock" dataIndex="quantity_in_stock"></Column>
         <Column title="Giảm giá" key="discount" dataIndex="discount"></Column>
-        {/* <Column title="Đánh giá" key="voteAverage" dataIndex="voteAverage"></Column> */}
 
         <Column
           title="Hành động"
@@ -73,8 +77,8 @@ function ProductList(props) {
                 type="primary"
                 size="small"
                 onClick={() => onEditClick(record)}
+                style={{background: "none",boxShadow: "none"}}
               >
-                {/* <EditOutlined style={{ marginRight: 8 }} /> */}
                 <CiEdit  style={{color:"green"}}/>
               </Button>
               <Button
@@ -83,8 +87,8 @@ function ProductList(props) {
                 danger
                 size="small"
                 onClick={() => openDeleteConfirmModal(record)} 
+                style={{background: "none",boxShadow: "none"}}
               >
-                {/* <DeleteOutlined style={{ marginRight: 8 }} /> */}
                 <AiOutlineDelete style={{color:"red"}}/>
               </Button>
             </Space>

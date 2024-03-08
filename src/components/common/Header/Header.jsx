@@ -3,9 +3,6 @@ import logo from "../../../assets/img/logo.png";
 import bgheader from "../../../assets/img/header_img.webp";
 import { Avatar, Badge, Button, Menu } from "antd";
 import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";

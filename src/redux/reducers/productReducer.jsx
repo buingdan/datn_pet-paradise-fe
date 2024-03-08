@@ -15,11 +15,8 @@ const initialState = {
   products: [],
   products_by_category: [],
   pagination: {
-    size: 5,
-    page: 0,
-    totalElements: 0,
-    query: '',
-    totalPages: 1,
+    "totalRecord": 0,
+    "currentPage": 1
   },
 };
 
