@@ -134,10 +134,8 @@ function HomePage() {
         </div>
       </div>
       <Modal
-        // title="Thông tin sản phẩm"
         open={open}
         onCancel={handleCancel}
-        // footer={null}
         className="modal-home"
       >
         {product && (

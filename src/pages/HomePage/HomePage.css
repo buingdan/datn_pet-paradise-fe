@@ -229,11 +229,11 @@
 .newletter_content h3 a:hover {
   color: #f9a529;
 }
-#home-container .ant-modal{
+#home-container .modal-home .ant-modal{
   width: 1000px !important;
 }
 
-#home-container .ant-modal-content {
+#home-container .modal-home .ant-modal-content {
   width: 1000px !important;
   height: 500px !important;
 }

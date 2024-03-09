@@ -109,8 +109,15 @@
   position: relative;
   margin-left: 15px;
 }
-.avatar-container button{
+.avatar-container .button-profile{
   position: absolute;
+  left: 10px;
+  bottom: 0;
+  transform: translate(0, 70%);
+}
+.avatar-container .button-login{
+  position: absolute;
+  top: 17px;
   left: 10px;
   bottom: 0;
   transform: translate(0, 70%);

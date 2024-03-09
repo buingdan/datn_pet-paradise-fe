@@ -18,6 +18,7 @@ function UserList(props) {
         <Column title="Tên tài khoản" key="username" dataIndex="username">
         </Column>
         <Column title="Tên đầy đủ" key="fullName" dataIndex="fullName"></Column>
+        <Column title="Địa chỉ" key="address" dataIndex="address"></Column>
         <Column title="Email" key="email" dataIndex="email"></Column>
         <Column title="Ngày tạo" key="create_date" dataIndex="create_date"></Column>
         <Column title="Số điện thoại" key="phoneNumber" dataIndex="phoneNumber"></Column>

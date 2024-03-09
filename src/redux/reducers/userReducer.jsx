@@ -1,10 +1,13 @@
 import {
+  PRODUCT_UPDATE,
     USERS_SET,
+    USER_SET,
     USER_STATE_CLEAR,
   } from "../actions/actionTypes";
   
   const initialState = {
     users: [],
+    user: {},
   };
   
   const userReducer = (state = initialState, { type, payload }) => {
@@ -15,6 +18,16 @@ import {
         return {
           users: [],
         };
+      case USER_SET:
+      return { ...state, user: payload };
+      case PRODUCT_UPDATE:
+      const newUser = state.users.filter(
+        (item) => item.id !== payload.id
+      );
+      return {
+        ...state,
+        users: [payload, ...newUser],
+      };
   
       default:
         return state;
