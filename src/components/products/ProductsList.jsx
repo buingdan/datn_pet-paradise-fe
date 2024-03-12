@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import ProductService from "../../services/productService";
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
+import moment from "moment";
 function ProductList(props) {
   const {dataSource, onEditClick} = props
   const dispatch = useDispatch();
@@ -33,7 +34,9 @@ function ProductList(props) {
       cancelText: "Cancel",
     })
   }
-
+  const formatDate = (dateString) => {
+    return moment(dateString).format("HH:mm:ss DD-MM-YYYY");
+  };
   return (
     <div>
       <Table dataSource={dataSource} size="small" rowKey="id" pagination={false} >
@@ -61,7 +64,7 @@ function ProductList(props) {
             }).format(price)}
           </span>
         )} sorter={(a, b) => a.price - b.price}></Column>
-        <Column title="Ngày tạo" key="create_date" dataIndex="create_date" sorter={(a, b) => new Date(a.create_date) - new Date(b.create_date)}></Column>
+        <Column title="Ngày tạo" key="create_date" dataIndex="create_date" sorter={(a, b) => new Date(a.create_date) - new Date(b.create_date)} render={(createDate) => formatDate(createDate)}></Column>
         <Column title="Số lượng" key="quantityInStock" dataIndex="quantity_in_stock"></Column>
         <Column title="Giảm giá" key="discount" dataIndex="discount"></Column>
 

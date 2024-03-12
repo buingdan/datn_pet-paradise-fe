@@ -78,12 +78,17 @@ function DashboardPage() {
           items={[
             {
               key: "1",
+              icon: <MdInsertChartOutlined />,
+              label: "Thống kê",
+            },
+            {
+              key: "2",
               icon: <MdInventory2 />,
               label: "Sản phẩm",
               onClick: () => navigate("/admin/products/list"),
             },
             {
-              key: "2",
+              key: "3",
               icon: <MdOutlineCategory />,
               label: "Danh mục SP",
               children: [
@@ -113,11 +118,7 @@ function DashboardPage() {
               icon: <MdInventory2 />,
               label: "Hóa đơn",
             },
-            {
-              key: "6",
-              icon: <MdInsertChartOutlined />,
-              label: "Thống kê",
-            },
+            
             {
               key: "7",
               icon: <MdManageAccounts />,

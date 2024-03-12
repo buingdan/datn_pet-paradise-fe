@@ -7,6 +7,7 @@ import { clearCategoryState, deleteCategory, getCategories } from "../../redux/a
 import { useNavigate } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
+import moment from "moment";
 function ListCategory() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categoryReducer.categories);
@@ -51,6 +52,9 @@ useEffect(() => {
   if (isLoading){
     return (<Skeleton active/>)
   }
+  const formatDate = (dateString) => {
+    return moment(dateString).format("HH:mm:ss DD-MM-YYYY");
+  };
   return (
     <div>
       <h1 style={{textAlign:"center", marginBottom:"30px"}}>QUẢN LÝ DANH MỤC SẢN PHẨM</h1>
@@ -71,6 +75,7 @@ useEffect(() => {
           title="Ngày tạo"
           key="create_date"
           dataIndex="create_date"
+          render={(createDate) => formatDate(createDate)}
         ></Column>
         <Column
           title="Hành động"
