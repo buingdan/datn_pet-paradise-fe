@@ -71,7 +71,7 @@ export const register = (username, fullName, email, password, address, phoneNumb
     const response = await authService.register(username, fullName, email, password, address, phoneNumber);
     console.log(">>>check register", response);
 
-    navigate("/")
+    navigate("/login")
 
 };
 

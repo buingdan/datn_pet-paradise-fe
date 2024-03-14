@@ -17,4 +17,7 @@ export default class UserService{
 
         return await axios.put(API_USER + "/" + id, formData);
     };
+    getUsersByUserName = async (params) => {
+        return await axios.get(API_USER + "/get/find", { params });
+    };
 }

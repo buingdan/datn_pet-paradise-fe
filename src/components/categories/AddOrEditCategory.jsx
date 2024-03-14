@@ -72,7 +72,7 @@ function AddOrEditCategory() {
               <Input readOnly />
             </Form.Item>
             <Form.Item
-              label="Tên loại sản phẩm"
+              label="Tên danh mục sản phẩm"
               name="name"
               initialValue={category.name}
               rules={[{ required: true, min: 2 }]}
@@ -95,7 +95,7 @@ function AddOrEditCategory() {
             {category.id && (
               <Form.Item>
                 <Popconfirm
-                  title="Bạn có chắc cập nhật sản phẩm này?"
+                  title="Bạn có chắc cập nhật danh mục sản phẩm này?"
                   onConfirm={confirmUpdate}
                   okText="Có"
                   cancelText="Không"

@@ -67,7 +67,7 @@ useEffect(() => {
           align="center"
         ></Column>
         <Column
-          title="Các loại sản phẩm"
+          title="Các danh mục sản phẩm"
           key="name"
           dataIndex="name"
         ></Column>

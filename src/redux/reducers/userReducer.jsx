@@ -2,12 +2,17 @@ import {
   PRODUCT_UPDATE,
     USERS_SET,
     USER_SET,
+    USER_SET_PAGEABLE,
     USER_STATE_CLEAR,
   } from "../actions/actionTypes";
   
   const initialState = {
     users: [],
     user: {},
+    pagination: {
+      "totalRecord": 0,
+      "currentPage": 1
+    },
   };
   
   const userReducer = (state = initialState, { type, payload }) => {
@@ -28,7 +33,8 @@ import {
         ...state,
         users: [payload, ...newUser],
       };
-  
+      case USER_SET_PAGEABLE:
+        return { ...state, pagination: payload };
       default:
         return state;
     }

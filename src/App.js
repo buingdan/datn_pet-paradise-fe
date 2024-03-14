@@ -14,6 +14,8 @@ import AddOrEditCategory from "./components/categories/AddOrEditCategory";
 import ListCategory from "./components/categories/ListCategory";
 import ListProducts from "./components/products/ListProducts";
 import ListUsers from "./components/users/ListUsers";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <Provider store={store()}>
@@ -35,6 +37,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </Provider>
   );
 }

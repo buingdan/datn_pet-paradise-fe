@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAuthState, login } from "../../redux/actions/authAction";
+import { toast } from "react-toastify";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,16 +32,28 @@ function Login() {
   useEffect(() => {
     dispatch(login(username, password));
   }, [username, password]);
-  
+
   const handleLogin = async () => {
-    dispatch(login(username, password));
-    const roleNames = userRoles.map((role) => role.name);
-    if (roleNames.includes("ROLE_ADMIN") || roleNames.includes("ROLE_MANAGER")) {
-      console.log("roleNames: true:====>", roleNames);
-      navigate("/admin/products/list");
-    } else {
-      console.log("roleNames: false:====>", roleNames);
-      navigate("/");
+    try {
+      dispatch(login(username, password));
+      const roleNames = userRoles.map((role) => role.name);
+      if (
+        roleNames.includes("ROLE_ADMIN") ||
+        roleNames.includes("ROLE_MANAGER")
+      ) {
+        console.log("roleNames: true:====>", roleNames);
+        localStorage.setItem("loginSuccess", "true");
+        navigate("/admin/products/list");
+      } else if (roleNames.includes("ROLE_USER")) {
+        console.log("roleNames: false:====>", roleNames);
+        localStorage.setItem("loginSuccess", "true");
+        navigate("/");
+      } else {
+        localStorage.setItem("loginSuccess", "false");
+        toast.error("Đăng nhập thất bại. Vui lòng thử lại!");
+      }
+    } catch (error) {
+      toast.error("Đăng nhập thất bại. Vui lòng thử lại!");
     }
   };
 
@@ -53,7 +66,7 @@ function Login() {
     <div id="login">
       <div className="wrapper">
         <div className="content">
-          <img src={bglogin} alt="bg-login"/>
+          <img src={bglogin} alt="bg-login" />
           <div className="form">
             <p>Đăng nhập</p>
             <div className="signup">

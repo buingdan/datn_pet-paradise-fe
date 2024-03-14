@@ -5,6 +5,7 @@ import {
   COMMON_MESSAGE_SET,
   USERS_SET,
   USER_SET,
+  USER_SET_PAGEABLE,
   USER_STATE_CLEAR,
   USER_UPDATE,
 } from "./actionTypes";
@@ -105,3 +106,52 @@ export const updateUser = (id, user) => async (dispatch) => {
     payload: false,
   });
 };
+
+export const getUsersByUserName = (params) => async (dispatch) => {
+  const service = new UserService();
+
+  try {
+    console.log("get products by name: ");
+
+    dispatch({
+      type: COMMON_LOADING_SET,
+      payload: true,
+    });
+
+    const response = await service.getUsersByUserName(params);
+
+    if (response.status === 200) {
+      dispatch({
+        type: USERS_SET,
+        payload: response.data.list,
+      });
+      const {currentPage, totalRecord} = response.data
+      console.log(">>>check currentPage",currentPage);
+      console.log(">>>check totalRecord",totalRecord);
+      const pagination = {
+        currentPage: currentPage,
+        totalRecord: totalRecord
+      }
+      dispatch({
+        type: USER_SET_PAGEABLE,
+        payload: pagination
+      })
+      console.log(">>>check pagination", pagination);
+    } else {
+      dispatch({
+        type: COMMON_ERROR_SET,
+        payload: response.message,
+      });
+    }
+    
+    console.log(">>check respone get all", response);
+  } catch (error) {
+    console.log("Error" + error);
+    dispatch({
+      type: COMMON_ERROR_SET,
+      payload: error.response.data
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+}

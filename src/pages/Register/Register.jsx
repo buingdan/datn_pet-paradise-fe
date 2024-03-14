@@ -5,6 +5,7 @@ import bglogin from "../../assets/img/bglogin.png"
 import {DoubleLeftOutlined} from "@ant-design/icons"
 import { useDispatch } from "react-redux"
 import { register } from "../../redux/actions/authAction"
+import { toast } from "react-toastify"
 
 
 function Register() {
@@ -17,7 +18,13 @@ function Register() {
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const handleSaveUser = async () => {
+        try {
         dispatch(register(username, fullName, email, password, address, phoneNumber, navigate));
+        toast.success("Đăng ký thành công!"); 
+      navigate("/login");
+    } catch (error) {
+        toast.error("Đăng ký thất bại. Vui lòng thử lại")
+      }
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {

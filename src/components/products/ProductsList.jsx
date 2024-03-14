@@ -30,8 +30,8 @@ function ProductList(props) {
         dispatch(deleteProduct(product.id))
           .then(() => dispatch(getProductsByName()));
       },
-      okText: "Delete",
-      cancelText: "Cancel",
+      okText: "Xóa",
+      cancelText: "Hủy",
     })
   }
   const formatDate = (dateString) => {

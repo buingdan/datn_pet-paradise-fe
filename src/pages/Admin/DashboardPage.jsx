@@ -22,6 +22,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setError, setMessage } from "../../redux/actions/commonAction";
 import { clearAuthState } from "../../redux/actions/authAction";
+import { toast } from "react-toastify";
 const { Header, Sider, Content } = Layout;
 
 function DashboardPage() {
@@ -51,7 +52,14 @@ function DashboardPage() {
       message.error(err);
     }
   }, [msg, err]);
-
+  useEffect(() => {
+    const loginSuccess = localStorage.getItem("loginSuccess");
+  
+    if (loginSuccess === "true") {
+      localStorage.removeItem("loginSuccess");
+      toast.success("Đăng nhập thành công!");
+    }
+  }, []);
   return (
     <Layout>
       <Sider

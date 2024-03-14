@@ -19,6 +19,7 @@ import { LikeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
@@ -44,6 +45,15 @@ function HomePage() {
     console.log(e);
     setOpen(false);
   };
+  useEffect(() => {
+    const loginSuccess = localStorage.getItem("loginSuccess");
+  
+    if (loginSuccess === "true") {
+      localStorage.removeItem("loginSuccess");
+      toast.success("Đăng nhập thành công!");
+    }
+  }, []);
+  
   return (
     <div id="home-container">
       <Header email={email}></Header>

@@ -18,12 +18,12 @@ function UserList(props) {
           width={40}
           align="center"
         ></Column>
-        <Column title="Tên tài khoản" key="username" dataIndex="username">
+        <Column title="Tên tài khoản" key="username" dataIndex="username" sorter={(a, b) => a.username.localeCompare(b.username)}>
         </Column>
-        <Column title="Tên đầy đủ" key="fullName" dataIndex="fullName"></Column>
+        <Column title="Tên đầy đủ" key="fullName" dataIndex="fullName" sorter={(a, b) => a.fullName.localeCompare(b.fullName)}></Column>
         <Column title="Địa chỉ" key="address" dataIndex="address"></Column>
         <Column title="Email" key="email" dataIndex="email"></Column>
-        <Column title="Ngày tạo" key="create_date" dataIndex="create_date" render={(create_date) => formatDate(create_date)}></Column>
+        <Column title="Ngày tạo" key="create_date" dataIndex="create_date" render={(create_date) => formatDate(create_date)} sorter={(a, b) => new Date(a.create_date) - new Date(b.create_date)}></Column>
         <Column title="Số điện thoại" key="phoneNumber" dataIndex="phoneNumber"></Column>
       </Table>
     </div>

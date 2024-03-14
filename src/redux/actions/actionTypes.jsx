@@ -26,3 +26,4 @@ export const USERS_SET = "USERS_SET";
 export const USER_SET = "USER_SET";
 export const USER_UPDATE = "USER_UPDATE";
 export const USER_STATE_CLEAR = "USER_STATE_CLEAR";
+export const USER_SET_PAGEABLE = "USER_SET_PAGEABLE";
