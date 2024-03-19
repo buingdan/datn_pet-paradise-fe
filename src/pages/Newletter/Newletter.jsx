@@ -15,11 +15,21 @@ import hotnew5 from "../../assets/img/hot-new5.webp";
 import imgdecor from "../../assets/img/img_decor.png";
 import "./Newletter.css";
 import { useSelector } from "react-redux";
+import { UpOutlined } from "@ant-design/icons";
 
 function Newletter() {
   const email = useSelector((state) => state.auth.email);
+  const handleScrollUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
-    <div className="newletter-container">
+    <div className="newletter-container" style={{position:"relative"}}>
+      <button className="scroll-up" onClick={handleScrollUp}>
+        <UpOutlined />
+      </button>
       <Header email={email}></Header>
       <div className="decor">
         <h1>Tin Thú Cưng</h1>

@@ -98,7 +98,7 @@ function DashboardPage() {
             {
               key: "3",
               icon: <MdOutlineCategory />,
-              label: "Danh mục SP",
+              label: "Danh mục",
               children: [
                 {
                   key: "21",
@@ -109,7 +109,7 @@ function DashboardPage() {
                 {
                   key: "22",
                   icon: <MdFormatListBulleted />,
-                  label: "Danh mục SP",
+                  label: "Danh mục",
                   onClick: () => navigate("/admin/categories/list"),
                 },
               ],
@@ -120,23 +120,22 @@ function DashboardPage() {
               label: "Tài khoản",
               onClick: () => navigate("/admin/users/list"),
             },
+            // {
+            //   key: "5",
+            //   icon: <MdInventory2 />,
+            //   label: "Hóa đơn",
+            // },
             
-            {
-              key: "5",
-              icon: <MdInventory2 />,
-              label: "Hóa đơn",
-            },
-            
-            {
-              key: "7",
-              icon: <MdManageAccounts />,
-              label: "Hồ sơ",
-            },
-            {
-              key: "8",
-              icon: <MdShoppingBag />,
-              label: "Đặt hàng",
-            },
+            // {
+            //   key: "7",
+            //   icon: <MdManageAccounts />,
+            //   label: "Hồ sơ",
+            // },
+            // {
+            //   key: "8",
+            //   icon: <MdShoppingBag />,
+            //   label: "Đặt hàng",
+            // },
             {
               key: "9",
               icon: <MdLogout />,

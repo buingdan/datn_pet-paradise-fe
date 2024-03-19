@@ -31,3 +31,19 @@ code {
 .ant-table-tbody>tr:hover {
   cursor: pointer;
 }
+.scroll-up {
+  position: fixed;
+  right: 1.042vw;
+  top: 30vw;
+  background-color: white;
+  border: 0.069vw solid #f9a529;
+  border-radius: 50%;
+  height: 3.403vw;
+  width: 3.403vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.scroll-up>span{
+    color: #f9a529;
+}

@@ -29,7 +29,7 @@ export const insertCategory = (category, navigate) => async (dispatch) => {
       });
       dispatch({
         type: COMMON_MESSAGE_SET,
-        payload: "Category is save ",
+        payload: "Thêm danh mục sản phẩm thành công! ",
       });
     } else {
       dispatch({

@@ -15,11 +15,12 @@ import {
   getProductsByName,
 } from "../../redux/actions/productAction";
 import ProductService from "../../services/productService";
-import { LikeOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { LikeOutlined, UpOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { addToCart } from "../../redux/actions/cartAction";
 function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
@@ -27,6 +28,9 @@ function HomePage() {
   const email = useSelector((state) => state.auth.email);
   const [open, setOpen] = useState(false);
   const [keyboard, setKeyboard] = useState(true);
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(getProductsByName());
     return () => {
@@ -47,15 +51,42 @@ function HomePage() {
   };
   useEffect(() => {
     const loginSuccess = localStorage.getItem("loginSuccess");
-  
+
     if (loginSuccess === "true") {
       localStorage.removeItem("loginSuccess");
       toast.success("Đăng nhập thành công!");
     }
   }, []);
-  
+  const handleScrollUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+  const handleAddToCart = (productId) => {
+    if (isAuthenticated) {
+      const cart = {
+        user: {
+          id: auth.user.id,
+        },
+        product: {
+          id: productId,
+        },
+        quantity: 1,
+      };
+      console.log(">>>cart", cart);
+      dispatch(addToCart(cart));
+      setOpen(false);
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
-    <div id="home-container">
+    <div id="home-container" style={{ position: "relative" }}>
+      <button className="scroll-up" onClick={handleScrollUp}>
+        <UpOutlined />
+      </button>
       <Header email={email}></Header>
       <div className="decor">
         <h1>Danh Mục</h1>
@@ -133,9 +164,15 @@ function HomePage() {
                   </div>
                   <div className="product-card-search">
                     <div className="product-card-search-bor">
-                      <Link>
-                        <IoCartOutline />| Mua ngay
-                      </Link>
+                      {isAuthenticated ? (
+                        <Link onClick={() => handleAddToCart(product.id)}>
+                          <IoCartOutline />| Mua ngay
+                        </Link>
+                      ) : (
+                        <Link to="/login">
+                          <IoCartOutline />| Mua ngay
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -143,11 +180,7 @@ function HomePage() {
             ))}
         </div>
       </div>
-      <Modal
-        open={open}
-        onCancel={handleCancel}
-        className="modal-home"
-      >
+      <Modal open={open} onCancel={handleCancel} className="modal-home">
         {product && (
           <>
             <div
@@ -160,7 +193,7 @@ function HomePage() {
             >
               <Image
                 src={ProductService.getProductLogoUrl(product.image)}
-                style={{objectFit:"cover", height:"460px"}}
+                style={{ objectFit: "cover", height: "460px" }}
               ></Image>
             </div>
             <div
@@ -168,8 +201,16 @@ function HomePage() {
               style={{ width: "450px", height: "460px" }}
             >
               <h1>{product.name}</h1>
-              <p style={{fontSize: "18px"}}>
-                <span style={{fontSize: "14px", verticalAlign: "top",marginRight: "2px"}}>₫</span>
+              <p style={{ fontSize: "18px" }}>
+                <span
+                  style={{
+                    fontSize: "14px",
+                    verticalAlign: "top",
+                    marginRight: "2px",
+                  }}
+                >
+                  ₫
+                </span>
                 {product.price && product.price.toLocaleString("vi-VN")}{" "}
               </p>
               <span style={{ marginRight: "5px" }}>Số lượng:</span>
@@ -182,7 +223,13 @@ function HomePage() {
               />
               <div className="product-detail-cart">
                 <div className="product-detail-cart-bor">
-                  <Link>THÊM VÀO GIỎ HÀNG</Link>
+                  {isAuthenticated ? (
+                    <Link onClick={() => handleAddToCart(product.id)}>
+                      THÊM VÀO GIỎ HÀNG
+                    </Link>
+                  ) : (
+                    <Link to="/login">THÊM VÀO GIỎ HÀNG</Link>
+                  )}
                 </div>
               </div>
             </div>

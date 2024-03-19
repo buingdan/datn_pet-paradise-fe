@@ -5,7 +5,7 @@ import { Avatar, Badge, Button, Form, Input, Menu, Modal } from "antd";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { clearAuthState } from "../../../redux/actions/authAction";
 import menuicon from "../../../assets/img/icon-menu.webp";
 import {
@@ -13,6 +13,8 @@ import {
   getProductsByName,
 } from "../../../redux/actions/productAction";
 import { updateUser } from "../../../redux/actions/userActions";
+import { getItemsCart } from "../../../redux/actions/cartAction";
+import ProductService from "../../../services/productService";
 
 const { SubMenu } = Menu;
 function Header({ email }) {
@@ -21,7 +23,10 @@ function Header({ email }) {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const auth = useSelector((state) => state.auth);
-
+  const [isCartModalVisible, setIsCartModalVisible] = useState(false);
+  const carts = useSelector((state) => state.cart.carts);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const totalPrice = carts.reduce((acc, carts) => acc + carts.totalPrice, 0);
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -61,9 +66,28 @@ function Header({ email }) {
   };
   const onFinish = (values) => {
     console.log("hehehe", auth.user.id);
-    dispatch(updateUser(auth.user.id, values))
+    dispatch(updateUser(auth.user.id, values));
     handleCancel();
   };
+  const showCartModal = () => {
+    dispatch(getItemsCart(auth.user.id));
+    setIsCartModalVisible(true);
+  };
+
+  const handleCartModalCancel = () => {
+    setIsCartModalVisible(false);
+  };
+  const goToLogin = () => {
+    navigate("login");
+  };
+  useEffect(() => {
+    dispatch(getItemsCart(auth.user.id));
+  }, [dispatch, auth.user.id]);
+
+  useEffect(() => {
+    const quantity = carts.reduce((acc, cart) => acc + cart.quantity, 0);
+    setTotalQuantity(quantity);
+  }, [carts]);
   return (
     <header id="header">
       <div className="container">
@@ -147,9 +171,15 @@ function Header({ email }) {
                 </Link>
               </div>
               <div className="actions">
-                <Badge count={5}>
-                  <Button type="text" icon={<ShoppingCartOutlined />} />
-                </Badge>
+                {isAuthenticated ?(
+                  <Badge count={totalQuantity} onClick={showCartModal}>
+                    <Button type="text" icon={<ShoppingCartOutlined />} />
+                  </Badge>
+                ) : (
+                  <Badge count={0} onClick={goToLogin}>
+                    <Button type="text" icon={<ShoppingCartOutlined />} />
+                  </Badge>
+                )}
                 {isAuthenticated ? (
                   <div
                     className="avatar-container"
@@ -165,7 +195,7 @@ function Header({ email }) {
                           className="button-profile"
                           onClick={handleProfileInfo}
                         >
-                            <a href="#">Thông tin cá nhân</a>
+                          <a href="#">Thông tin cá nhân</a>
                         </Button>
                         <Button
                           type="primary"
@@ -226,11 +256,46 @@ function Header({ email }) {
                 <Input />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" htmlType="submit" style={{background:"rgb(11, 189, 204)"}}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ background: "rgb(11, 189, 204)" }}
+                >
                   Lưu thay đổi
                 </Button>
               </Form.Item>
             </Form>
+          </Modal>
+          <Modal
+            title="Giỏ hàng của bạn"
+            open={isCartModalVisible}
+            onCancel={handleCartModalCancel}
+            footer={null}
+            className="modal-cart"
+          >
+            {carts.map((cartItem, index) => (
+              <div key={index} className="cart-item" style={{display:"flex"}}>
+                <div className="cart-item-image">
+                  <img
+                    src={
+                      cartItem.product.image
+                        ? ProductService?.getProductLogoUrl(
+                            cartItem.product.image
+                          )
+                        : null
+                    }
+                    alt={cartItem.product.name}
+                    style={{width:"150px", height:"100px", marginRight:"30px", objectFit:"cover"}}
+                  />
+                </div>
+                <div className="cart-item-details">
+                  <h2>{cartItem.product.name}</h2>
+                  <p>Giá: {cartItem.product.price.toLocaleString()}VNĐ</p>
+                  <p>Số lượng: {cartItem.quantity}</p>
+                </div>
+              </div>
+            ))}
+            <h3>Thành tiền: {totalPrice.toLocaleString()}đ</h3>
           </Modal>
         </div>
       </div>

@@ -122,4 +122,7 @@
   bottom: 0;
   transform: translate(0, 70%);
 }
-
+.modal-cart>.ant-modal-content>.ant-modal-body{
+  display: flex;
+  flex-direction: column;
+}

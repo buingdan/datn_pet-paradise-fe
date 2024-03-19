@@ -27,3 +27,8 @@ export const USER_SET = "USER_SET";
 export const USER_UPDATE = "USER_UPDATE";
 export const USER_STATE_CLEAR = "USER_STATE_CLEAR";
 export const USER_SET_PAGEABLE = "USER_SET_PAGEABLE";
+
+export const CART_SET = "CART_SET";
+export const CARTS_SET = "CARTS_SET";
+export const CART_DELETE = "CART_DELETE";
+export const CART_STATE_CLEAR = "CART_STATE_CLEAR";

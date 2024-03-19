@@ -30,7 +30,7 @@ function Footer() {
                     <div className="about-us">
                         <h3>Công ty của chúng tôi</h3>
                         <p>Giới thiệu</p>
-                        <p>Nghề nghiẹp</p>
+                        <p>Nghề nghiệp</p>
                         <p>Liên lạc</p>
                         <p>Trụ sở</p>
                     </div>
