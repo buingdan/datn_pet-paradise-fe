@@ -28,7 +28,7 @@ import { LikeOutlined, SearchOutlined, UpOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
-import { addToCart } from "../../redux/actions/cartAction";
+import { addToCart, getItemsCart } from "../../redux/actions/cartAction";
 import { toast } from "react-toastify";
 function Product() {
   const dispatch = useDispatch();
@@ -50,6 +50,7 @@ function Product() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const auth = useSelector((state) => state.auth);
   const error = useSelector((state) => state.commonReducer.error);
+  const [quantity, setQuantity] = useState(1);
 
   const handleSearch = async (value) => {
     const params = {
@@ -99,9 +100,34 @@ function Product() {
       behavior: "smooth",
     });
   };
-  const handleAddToCart = (productId) => {
+  const handleAddToCartMore = async (productId, quantity) => {
     if (isAuthenticated) {
-      const cart = {
+        const cart = {
+          user: {
+            id: auth.user.id,
+          },
+          product: {
+            id: productId,
+          },
+          quantity: quantity,
+        };
+        console.log(">>>cart", cart);
+        await dispatch(addToCart(cart));
+        dispatch(getItemsCart(auth.user.id));
+        toast.success("Thêm vào giỏ hàng thành công!");
+        setOpen(false);
+      }else {
+      navigate("/login");
+    }
+    // if (error.equals("")) {
+    //   toast.success("Thêm vào giỏ hàng thành công");
+    // } else {
+    //   toast.error(error);
+    // }
+  };
+  const handleAddToCart = async (productId) => {
+    if (isAuthenticated) {
+        const cart = {
         user: {
           id: auth.user.id,
         },
@@ -111,7 +137,9 @@ function Product() {
         quantity: 1,
       };
       console.log(">>>cart", cart);
-      dispatch(addToCart(cart));
+      await dispatch(addToCart(cart));
+      dispatch(getItemsCart(auth.user.id));
+      toast.success("Thêm vào giỏ hàng thành công!");
       setOpen(false);
     } else {
       navigate("/login");
@@ -122,6 +150,10 @@ function Product() {
     //   toast.error(error);
     // }
   };
+  const handleChangeQuantity = (value)=>{
+    setQuantity(value);
+    console.log("quantity",quantity);
+  }
 
   return (
     <div className="product-container" style={{ position: "relative" }}>
@@ -325,20 +357,8 @@ function Product() {
                   </span>
                   {product.price && product.price.toLocaleString("vi-VN")}{" "}
                 </p>
-                <span style={{ marginRight: "5px" }}>Số lượng:</span>
-                <input
-                  type="number"
-                  value={1}
-                  style={{
-                    width: "45px",
-                    padding: "5px",
-                    border: "1px solid #f4b915",
-                    borderRadius: "2px",
-                    fontSize: "16px",
-                    outline: "none",
-                    transition: " border-color 0.3s ease",
-                  }}
-                />
+                <p style={{ marginRight: "5px", fontSize:"16px" }}>Số lượng:{" "}<input type="number" value={quantity} min="1" style={{ width: "45px",height:"35px",paddingLeft: "12px", border: "1px solid #eeddba", borderRadius: "2px",
+                  fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }} onChange={(e) => handleChangeQuantity(e.target.value)}/></p>
                 <h3 style={{ marginRight: "5px", fontWeight: "400" }}>
                   Số lượng kho hàng: {product.quantity_in_stock}
                 </h3>
@@ -348,7 +368,7 @@ function Product() {
                 <div className="product-detail-cart">
                   <div className="product-detail-cart-bor">
                     {isAuthenticated ? (
-                      <Link onClick={() => handleAddToCart(product.id)}>
+                      <Link onClick={() => handleAddToCartMore(product.id, quantity)}>
                         THÊM VÀO GIỎ HÀNG
                       </Link>
                     ) : (

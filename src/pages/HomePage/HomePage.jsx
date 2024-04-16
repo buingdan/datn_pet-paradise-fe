@@ -20,7 +20,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
-import { addToCart } from "../../redux/actions/cartAction";
+import { addToCart, getItemsCart } from "../../redux/actions/cartAction";
 function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
@@ -32,6 +32,7 @@ function HomePage() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const auth = useSelector((state) => state.auth);
   const error = useSelector((state) => state.commonReducer.error);
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     dispatch(getProductsByName());
     return () => {
@@ -64,7 +65,32 @@ function HomePage() {
       behavior: "smooth",
     });
   };
-  const handleAddToCart = (productId) => {
+  const handleAddToCartMore = async (productId, quantity) => {
+    if (isAuthenticated) {
+        const cart = {
+          user: {
+            id: auth.user.id,
+          },
+          product: {
+            id: productId,
+          },
+          quantity: quantity,
+        };
+        console.log(">>>cart", cart);
+        await dispatch(addToCart(cart));
+        dispatch(getItemsCart(auth.user.id));
+        toast.success("Thêm vào giỏ hàng thành công!");
+        setOpen(false);
+      }else {
+      navigate("/login");
+    }
+    // if (error.equals("")) {
+    //   toast.success("Thêm vào giỏ hàng thành công");
+    // } else {
+    //   toast.error(error);
+    // }
+  };
+  const handleAddToCart= async (productId) => {
     if (isAuthenticated) {
       const cart = {
         user: {
@@ -76,8 +102,10 @@ function HomePage() {
         quantity: 1,
       };
       console.log(">>>cart", cart);
-      dispatch(addToCart(cart));
+      await dispatch(addToCart(cart));
+      dispatch(getItemsCart(auth.user.id));
       setOpen(false);
+      toast.success("Thêm vào giỏ hàng thành công!");
     } else {
       navigate("/login");
     }
@@ -87,6 +115,9 @@ function HomePage() {
     //   toast.error(error);
     // }
   };
+  const handleChangeQuantity = (value)=>{
+    setQuantity(value);
+  }
 
   return (
     <div id="home-container" style={{ position: "relative" }}>
@@ -219,15 +250,14 @@ function HomePage() {
                 </span>
                 {product.price && product.price.toLocaleString("vi-VN")}{" "}
               </p>
-              <span style={{ marginRight: "5px" }}>Số lượng:</span>
-              <input type="number" value={1} style={{ width: "45px", padding: "5px", border: "1px solid #f4b915", borderRadius: "2px",
-              fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }}/>
+              <p style={{ marginRight: "5px", fontSize:"16px" }}>Số lượng:{" "}<input type="number" value={quantity} min="1" style={{ width: "45px",height:"35px",paddingLeft: "12px", border: "1px solid #eeddba", borderRadius: "2px",
+                  fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }} onChange={(e) => handleChangeQuantity(e.target.value)}/></p>
               <h3 style={{ marginRight: "5px", fontWeight:"400" }}>Số lượng kho hàng: {product.quantity_in_stock}</h3>
               <h3 style={{ marginRight: "5px", fontWeight:"400" }}>Danh mục: {product.category?.name}</h3>
               <div className="product-detail-cart">
                 <div className="product-detail-cart-bor">
                   {isAuthenticated ? (
-                    <Link onClick={() => handleAddToCart(product.id)}>
+                    <Link onClick={() => handleAddToCartMore(product.id, quantity)}>
                       THÊM VÀO GIỎ HÀNG
                     </Link>
                   ) : (

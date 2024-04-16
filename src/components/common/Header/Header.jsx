@@ -100,7 +100,8 @@ function Header({ email }) {
   };
   const handleUpdateQuantity = async (cartId, quantity) => {
     try {
-        dispatch(updateQuantityCart(cartId, quantity));
+        await dispatch(updateQuantityCart(cartId, quantity));
+        dispatch(getItemsCart(auth.user.id));
         toast.success("Số lượng trong giỏ hàng đã được cập nhật!");
     } catch (error) {
         console.log("Error", error);
@@ -316,10 +317,10 @@ function Header({ email }) {
                     }}
                   />
                 </div>
-                <div className="cart-item-details">
+                <div className="cart-item-details" style={{width:"200px"}}>
                   <h2>{cartItem.product.name}</h2>
-                  <p>Giá: {cartItem.product.price.toLocaleString()}VNĐ</p>
-                  <p>Số lượng:<input type="number" value={cartItem.quantity} style={{ width: "45px", padding: "5px", border: "1px solid #f4b915", borderRadius: "2px",
+                  <p>Giá: {cartItem.product.price.toLocaleString()} VNĐ</p>
+                  <p>Số lượng:{" "}<input type="number" value={cartItem.quantity} min="1" style={{ width: "45px",height:"35px",paddingLeft: "12px", border: "1px solid #eeddba", borderRadius: "2px",
                   fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }} onChange={(e) => handleUpdateQuantity(cartItem.id, e.target.value)}/></p>
                 </div>
                 <Button
