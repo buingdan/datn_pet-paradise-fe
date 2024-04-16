@@ -13,8 +13,10 @@ import {
   getProductsByName,
 } from "../../../redux/actions/productAction";
 import { updateUser } from "../../../redux/actions/userActions";
-import { getItemsCart } from "../../../redux/actions/cartAction";
+import { getItemsCart, removeToCart, updateQuantityCart } from "../../../redux/actions/cartAction";
 import ProductService from "../../../services/productService";
+import { AiOutlineDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const { SubMenu } = Menu;
 function Header({ email }) {
@@ -27,6 +29,7 @@ function Header({ email }) {
   const carts = useSelector((state) => state.cart.carts);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const totalPrice = carts.reduce((acc, carts) => acc + carts.totalPrice, 0);
+  const message = useSelector((state) => state.commonReducer.message);
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -36,6 +39,9 @@ function Header({ email }) {
   };
   const handleLogout = () => {
     dispatch(clearAuthState());
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('refreshToken');
   };
   const navigate = useNavigate();
   const handleMenuItemClick = async (query) => {
@@ -88,6 +94,20 @@ function Header({ email }) {
     const quantity = carts.reduce((acc, cart) => acc + cart.quantity, 0);
     setTotalQuantity(quantity);
   }, [carts]);
+  const handleDeleteCartModal = (cartId) => {
+    dispatch(removeToCart(cartId));
+    toast.success(message)
+  };
+  const handleUpdateQuantity = async (cartId, quantity) => {
+    try {
+        dispatch(updateQuantityCart(cartId, quantity));
+        toast.success("Số lượng trong giỏ hàng đã được cập nhật!");
+    } catch (error) {
+        console.log("Error", error);
+        toast.error(error);
+    }
+};
+
   return (
     <header id="header">
       <div className="container">
@@ -171,7 +191,7 @@ function Header({ email }) {
                 </Link>
               </div>
               <div className="actions">
-                {isAuthenticated ?(
+                {isAuthenticated ? (
                   <Badge count={totalQuantity} onClick={showCartModal}>
                     <Button type="text" icon={<ShoppingCartOutlined />} />
                   </Badge>
@@ -274,7 +294,11 @@ function Header({ email }) {
             className="modal-cart"
           >
             {carts.map((cartItem, index) => (
-              <div key={index} className="cart-item" style={{display:"flex"}}>
+              <div
+                key={index}
+                className="cart-item"
+                style={{ display: "flex", alignItems:"center", justifyContent:"space-between" }}
+              >
                 <div className="cart-item-image">
                   <img
                     src={
@@ -285,17 +309,35 @@ function Header({ email }) {
                         : null
                     }
                     alt={cartItem.product.name}
-                    style={{width:"150px", height:"100px", marginRight:"30px", objectFit:"cover"}}
+                    style={{
+                      width: "200px",
+                      height: "100px",
+                      objectFit: "cover",
+                    }}
                   />
                 </div>
                 <div className="cart-item-details">
                   <h2>{cartItem.product.name}</h2>
                   <p>Giá: {cartItem.product.price.toLocaleString()}VNĐ</p>
-                  <p>Số lượng: {cartItem.quantity}</p>
+                  <p>Số lượng:<input type="number" value={cartItem.quantity} style={{ width: "45px", padding: "5px", border: "1px solid #f4b915", borderRadius: "2px",
+                  fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }} onChange={(e) => handleUpdateQuantity(cartItem.id, e.target.value)}/></p>
                 </div>
+                <Button
+                  key={cartItem.id}
+                  type="primary"
+                  danger
+                  size="small"
+                  onClick={() => handleDeleteCartModal(cartItem.id)}
+                  style={{ background: "none", boxShadow: "none" }}
+                >
+                  <AiOutlineDelete style={{ color: "red" }} />
+                </Button>
               </div>
             ))}
-            <h3>Thành tiền: {totalPrice.toLocaleString()}đ</h3>
+            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <h3>Thành tiền: {totalPrice.toLocaleString()}đ</h3>{" "}
+              <Button type="primary" htmlType="submit" style={{backgroundColor:"#0bbdcc"}}>Đặt hàng</Button>
+            </div>
           </Modal>
         </div>
       </div>

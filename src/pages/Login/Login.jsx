@@ -17,7 +17,9 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userRoles = useSelector((state) => state.auth.roles);
-
+  const user = useSelector((state) => state.auth.user);
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const refreshToken = useSelector((state) => state.auth.refreshToken);
   const handleTogglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -36,6 +38,9 @@ function Login() {
   const handleLogin = async () => {
     try {
       dispatch(login(username, password));
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('userInfo', JSON.stringify(user));
+      localStorage.setItem('refreshToken', refreshToken);
       const roleNames = userRoles.map((role) => role.name);
       if (
         roleNames.includes("ROLE_ADMIN") ||

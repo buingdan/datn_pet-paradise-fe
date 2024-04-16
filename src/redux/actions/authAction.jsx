@@ -19,7 +19,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     const response = await authService.login(email, password);
-
+console.log(">>>check response login", response);
     if (response.status === 200) {
       dispatch({
         type: AUTH_LOGIN,

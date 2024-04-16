@@ -1,10 +1,12 @@
 import axios from "axios"
 import { API_USER } from "./constant";
+// import axiosInstance from "../config/axiosInterceptor";
 
 export default class UserService{
 
     getUsers = async () => {
         return await axios.get(API_USER);
+        // return await axiosInstance.get(API_USER);
     };
 
     updateUser = async (id, user) => {
@@ -16,8 +18,10 @@ export default class UserService{
         formData.append("phoneNumber", user.phoneNumber)
 
         return await axios.put(API_USER + "/" + id, formData);
+        // return await axiosInstance.put(API_USER + "/" + id, formData);
     };
     getUsersByUserName = async (params) => {
         return await axios.get(API_USER + "/get/find", { params });
+        // return await axiosInstance.get(API_USER + "/get/find", { params });
     };
 }

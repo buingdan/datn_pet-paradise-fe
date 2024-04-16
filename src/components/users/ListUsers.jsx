@@ -40,7 +40,7 @@ function ListUsers() {
         <Col md={20}>
           <Form layout="inline" name="searchForm" onFinish={handleSearch}>
             <Form.Item name="query">
-              <Input placeholder="Tìm kiếm..." style={{borderColor: "#f4b915"}} value={inputValue} onChange={(e) => setInputValue(e.target.value)} ></Input>
+              <Input placeholder="Tìm kiếm..." style={{borderColor: "#f4b915"}} value={inputValue} onChange={(e) => setInputValue(e.target.value)} allowClear></Input>
             </Form.Item>
             <Button type="primary" htmlType="submit" style={{backgroundColor:"#0bbdcc"}}>Tìm kiếm</Button>
           </Form>

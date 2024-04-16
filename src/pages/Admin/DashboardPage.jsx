@@ -82,13 +82,13 @@ function DashboardPage() {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["2"]}
           items={[
-            {
-              key: "1",
-              icon: <MdInsertChartOutlined />,
-              label: "Thống kê",
-            },
+            // {
+            //   key: "1",
+            //   icon: <MdInsertChartOutlined />,
+            //   label: "Thống kê",
+            // },
             {
               key: "2",
               icon: <MdInventory2 />,
@@ -140,7 +140,7 @@ function DashboardPage() {
               key: "9",
               icon: <MdLogout />,
               label: "Đăng xuất",
-              onClick: ()=> {dispatch(clearAuthState()); navigate("/login");}
+              onClick: ()=> {dispatch(clearAuthState()); navigate("/login"); localStorage.removeItem('accessToken'); localStorage.removeItem('userInfo');localStorage.removeItem('refreshToken');}
             },
           ]}
         />

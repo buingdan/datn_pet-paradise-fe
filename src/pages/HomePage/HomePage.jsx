@@ -16,7 +16,7 @@ import {
 } from "../../redux/actions/productAction";
 import ProductService from "../../services/productService";
 import { LikeOutlined, UpOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
@@ -31,6 +31,7 @@ function HomePage() {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const auth = useSelector((state) => state.auth);
+  const error = useSelector((state) => state.commonReducer.error);
   useEffect(() => {
     dispatch(getProductsByName());
     return () => {
@@ -80,6 +81,11 @@ function HomePage() {
     } else {
       navigate("/login");
     }
+    // if (error.equals("")) {
+    //   toast.success("Thêm vào giỏ hàng thành công");
+    // } else {
+    //   toast.error(error);
+    // }
   };
 
   return (
@@ -214,13 +220,10 @@ function HomePage() {
                 {product.price && product.price.toLocaleString("vi-VN")}{" "}
               </p>
               <span style={{ marginRight: "5px" }}>Số lượng:</span>
-              <InputNumber
-                min={1}
-                max={10}
-                keyboard={keyboard}
-                defaultValue={3}
-                style={{ width: "45px" }}
-              />
+              <input type="number" value={1} style={{ width: "45px", padding: "5px", border: "1px solid #f4b915", borderRadius: "2px",
+              fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }}/>
+              <h3 style={{ marginRight: "5px", fontWeight:"400" }}>Số lượng kho hàng: {product.quantity_in_stock}</h3>
+              <h3 style={{ marginRight: "5px", fontWeight:"400" }}>Danh mục: {product.category?.name}</h3>
               <div className="product-detail-cart">
                 <div className="product-detail-cart-bor">
                   {isAuthenticated ? (
@@ -246,9 +249,9 @@ function HomePage() {
             <img src={imgnewletter1} alt="imgbanner" />
             <div className="newletter_content">
               <h3>
-                <a href="#">
+                <NavLink to="/newletter">
                   Cách ít người biết để dạy mèo đi vệ sinh đúng chỗ
-                </a>
+                </NavLink>
               </h3>
               <p>
                 Với không ít người nuôi mèo, việc dạy cho mèo cách đi vệ sinh
@@ -256,9 +259,9 @@ function HomePage() {
                 đề này ngay từ khi mèo còn nhỏ chúng ta s...
               </p>
               <div className="show_more">
-                <a href="#" class="showMoreLink">
+                <NavLink to="/newletter" class="showMoreLink">
                   Xem tiếp
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -266,19 +269,19 @@ function HomePage() {
             <img src={imgnewletter2} alt="imgbanner" />
             <div className="newletter_content">
               <h3>
-                <a href="#" class="showMoreLink">
+                <NavLink to="/newletter" class="showMoreLink">
                   Tình yêu giống như một con chó, mình đuổi thì nó chạy mình
                   chạy thì nó lại đuổi
-                </a>
+                </NavLink>
               </h3>
               <p>
                 “Tình yêu thứ mà ai cũng khao khát có được, ai cũng muốn mình là
                 người hạnh phúc nhất, nhưng cuộc sống lại không...
               </p>
               <div className="show_more">
-                <a href="#" class="showMoreLink">
+                <NavLink to="/newletter" class="showMoreLink">
                   Xem tiếp
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>

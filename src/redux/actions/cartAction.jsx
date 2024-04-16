@@ -1,5 +1,5 @@
 import CartService from "../../services/cartService";
-import { CARTS_SET, CART_DELETE, CART_SET, CART_STATE_CLEAR, COMMON_ERROR_SET, COMMON_LOADING_SET, COMMON_MESSAGE_SET } from "./actionTypes";
+import { CARTS_SET, CART_DELETE, CART_SET, CART_STATE_CLEAR, CART_UPDATE, COMMON_ERROR_SET, COMMON_LOADING_SET, COMMON_MESSAGE_SET } from "./actionTypes";
 
 export const addToCart = (cart) => async (dispatch) => {
   const service = new CartService();
@@ -16,27 +16,26 @@ export const addToCart = (cart) => async (dispatch) => {
 
     if (response.status === 201) {
       dispatch({
-        type: CART_SET,
+        type: CARTS_SET,
         payload: response.data,
       });
       dispatch({
         type: COMMON_MESSAGE_SET,
         payload: "Thêm sản phẩm vào giỏ hàng thành công! ",
       });
-    } else {
-      dispatch({
-        type: COMMON_ERROR_SET,
-        payload: response.message,
-      });
     }
+    // } else {
+    //   dispatch({
+    //     type: COMMON_ERROR_SET,
+    //     payload: response.message,
+    //   });
+    // }
     console.log(">>check respone addtocart", response);
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
     dispatch({
       type: COMMON_ERROR_SET,
-      payload: error.response.data
-        ? error.response.data.message
-        : error.message,
+      payload: error.response && error.response.data ? error.response.data : error.message,
     });
   }
 
@@ -120,6 +119,51 @@ export const removeToCart = (idCart) => async (dispatch) => {
     }
 
     console.log(">>check respone removeToCart", response);
+  } catch (error) {
+    console.log("Error" + error);
+    dispatch({
+      type: COMMON_ERROR_SET,
+      payload: error.response.data
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+
+  dispatch({
+    type: COMMON_LOADING_SET,
+    payload: false,
+  });
+};
+export const updateQuantityCart = (idUser, quantity) => async (dispatch) => {
+  const service = new CartService();
+  try {
+    console.log(">>>updateQuantityCart: ");
+
+    dispatch({
+      type: COMMON_LOADING_SET,
+      payload: true,
+    });
+
+    const response = await service.updateQuantity(idUser, quantity);
+    if (response.status === 200) {
+      dispatch({
+        type: CART_SET,
+        payload: response.data,
+      });
+
+      dispatch({
+        type: COMMON_MESSAGE_SET,
+        payload: "Giỏ hàng đã được cập nhật",
+      })
+    } else {
+      dispatch({
+        type: COMMON_ERROR_SET,
+        payload: response.message,
+      });
+    }
+
+
+    console.log(">>check respone update quantity cart", response);
   } catch (error) {
     console.log("Error" + error);
     dispatch({

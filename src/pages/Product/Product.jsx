@@ -29,6 +29,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { addToCart } from "../../redux/actions/cartAction";
+import { toast } from "react-toastify";
 function Product() {
   const dispatch = useDispatch();
   const pagination = useSelector((state) => state.productReducer.pagination);
@@ -48,6 +49,8 @@ function Product() {
   const [searchQuery, setSearchQuery] = useState("");
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const auth = useSelector((state) => state.auth);
+  const error = useSelector((state) => state.commonReducer.error);
+
   const handleSearch = async (value) => {
     const params = {
       query: value.query || "",
@@ -113,7 +116,13 @@ function Product() {
     } else {
       navigate("/login");
     }
+    // if (error.equals("")) {
+    //   toast.success("Thêm vào giỏ hàng thành công");
+    // } else {
+    //   toast.error(error);
+    // }
   };
+
   return (
     <div className="product-container" style={{ position: "relative" }}>
       {console.log(">>>check productsToDisplay: ", productsToDisplay)}
@@ -134,11 +143,13 @@ function Product() {
             onFinish={handleSearch}
             className="text-search"
           >
-            <Form.Item name="query" initialValue={searchQuery}>
+            <Form.Item name="query">
               <Input
                 placeholder="Tìm kiếm... "
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                allowClear
+                style={{borderColor: "#f4b915"}}
               ></Input>
             </Form.Item>
             <Button
@@ -315,17 +326,31 @@ function Product() {
                   {product.price && product.price.toLocaleString("vi-VN")}{" "}
                 </p>
                 <span style={{ marginRight: "5px" }}>Số lượng:</span>
-                <InputNumber
-                  min={1}
-                  max={10}
-                  keyboard={keyboard}
-                  defaultValue={3}
-                  style={{ width: "45px" }}
+                <input
+                  type="number"
+                  value={1}
+                  style={{
+                    width: "45px",
+                    padding: "5px",
+                    border: "1px solid #f4b915",
+                    borderRadius: "2px",
+                    fontSize: "16px",
+                    outline: "none",
+                    transition: " border-color 0.3s ease",
+                  }}
                 />
+                <h3 style={{ marginRight: "5px", fontWeight: "400" }}>
+                  Số lượng kho hàng: {product.quantity_in_stock}
+                </h3>
+                <h3 style={{ marginRight: "5px", fontWeight: "400" }}>
+                  Danh mục: {product.category?.name}
+                </h3>
                 <div className="product-detail-cart">
                   <div className="product-detail-cart-bor">
                     {isAuthenticated ? (
-                      <Link onClick={() => handleAddToCart(product.id)}>THÊM VÀO GIỎ HÀNG</Link>
+                      <Link onClick={() => handleAddToCart(product.id)}>
+                        THÊM VÀO GIỎ HÀNG
+                      </Link>
                     ) : (
                       <Link to="/login">THÊM VÀO GIỎ HÀNG</Link>
                     )}

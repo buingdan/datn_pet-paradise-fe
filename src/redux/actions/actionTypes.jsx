@@ -32,3 +32,4 @@ export const CART_SET = "CART_SET";
 export const CARTS_SET = "CARTS_SET";
 export const CART_DELETE = "CART_DELETE";
 export const CART_STATE_CLEAR = "CART_STATE_CLEAR";
+export const CART_UPDATE = "CART_UPDATE";
