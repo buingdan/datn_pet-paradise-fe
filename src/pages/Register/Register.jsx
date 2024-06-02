@@ -19,7 +19,7 @@ function Register() {
     const [address, setAddress] = useState("");
     const handleSaveUser = async () => {
         try {
-        dispatch(register(username, fullName, email, password, address, phoneNumber, navigate));
+        await dispatch(register(username, fullName, email, password, address, phoneNumber, navigate));
         toast.success("Đăng ký thành công!"); 
       navigate("/login");
     } catch (error) {

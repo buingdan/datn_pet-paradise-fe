@@ -46,6 +46,7 @@ function HomePage() {
   const showModal = (productId) => {
     setOpen(true);
     dispatch(getProduct(productId));
+    console.log(">>>check products:", products);
   };
   const handleCancel = (e) => {
     console.log(e);
@@ -177,14 +178,46 @@ function HomePage() {
                     src={ProductService.getProductLogoUrl(product.image)}
                     alt={product.name}
                   />
+                  {product.promotion?.id && (
+                  <div
+                    className="product-card-promotion"
+                    style={{
+                      width: "80px",
+                      height: "40px",
+                      backgroundColor: "#ffe97a",
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                    }}
+                  >
+                    <h4 style={{ color: "red", textAlign: "center", lineHeight: "40px" }}>
+                      - {product.promotion.discount * 100} %
+                    </h4>
+                  </div>
+                  )}
                 </div>
                 <div className="product-card-act">
                   <div className="product-card-act-up">
-                    <Rate defaultValue={4.5} />
-                    <p>
-                      <span>₫</span>
-                      {product.price.toLocaleString("vi-VN")}
-                    </p>
+                    <Rate defaultValue={4.5} style={{fontSize:"18px"}}/>
+                    {product.promotion?.id ?
+                    <div className="price-product">
+                        <p style={{textDecoration: "line-through", fontSize:"14px", color:"black", marginRight:"5px"}}>
+                          <span>₫</span>
+                          {product.price.toLocaleString("vi-VN")}
+                        </p>
+                        <p style={{fontSize: "17px"}}>
+                          <span>₫</span>
+                          {(product.price - product.price * product.promotion.discount).toLocaleString("vi-VN")}
+                        </p>
+                      </div>
+                      :
+                      <div className="price-product">
+                        <p style={{fontSize: "17px"}}>
+                          <span>₫</span>
+                          {product.price.toLocaleString("vi-VN")}
+                        </p>
+                      </div>
+                    }
                   </div>
                   <div className="product-card-act-down">
                     <p>{product.name}</p>
@@ -238,6 +271,20 @@ function HomePage() {
               style={{ width: "450px", height: "460px" }}
             >
               <h1>{product.name}</h1>
+              {product.promotion?.id ?
+              <p style={{ fontSize: "18px" }}>
+              <span
+                style={{
+                  fontSize: "14px",
+                  verticalAlign: "top",
+                  marginRight: "2px",
+                }}
+              >
+                ₫
+              </span>
+              {(product.price - product.price * product.promotion.discount).toLocaleString("vi-VN")}
+            </p>
+            :
               <p style={{ fontSize: "18px" }}>
                 <span
                   style={{
@@ -250,6 +297,7 @@ function HomePage() {
                 </span>
                 {product.price && product.price.toLocaleString("vi-VN")}{" "}
               </p>
+              }
               <p style={{ marginRight: "5px", fontSize:"16px" }}>Số lượng:{" "}<input type="number" value={quantity} min="1" style={{ width: "45px",height:"35px",paddingLeft: "12px", border: "1px solid #eeddba", borderRadius: "2px",
                   fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }} onChange={(e) => handleChangeQuantity(e.target.value)}/></p>
               <h3 style={{ marginRight: "5px", fontWeight:"400" }}>Số lượng kho hàng: {product.quantity_in_stock}</h3>

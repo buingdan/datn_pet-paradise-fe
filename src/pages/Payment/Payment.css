@@ -1,0 +1,40 @@
+.payment-container #header {
+    height: 300px;
+    background: center center/ cover no-repeat url(../../assets/img/bg-p.webp);
+}
+.content-payment{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.payment-infor{
+    width: 617px;
+}
+.payment-infor input{
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: .94em .8em;
+    border: 1px #d9d9d9 solid;
+    height: 44px;
+    background-color: #fff;
+    color: #333;
+    margin-top: 10px;
+}
+.payment-infor select{
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: .94em .8em;
+    border: 1px #d9d9d9 solid;
+    height: 50px;
+    background-color: #fff;
+    color: #333;
+    margin-top: 10px;
+}
+
+.order-payment{
+    width: 493px;
+}

@@ -37,7 +37,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      dispatch(login(username, password));
+      await dispatch(login(username, password));
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('userInfo', JSON.stringify(user));
       localStorage.setItem('refreshToken', refreshToken);

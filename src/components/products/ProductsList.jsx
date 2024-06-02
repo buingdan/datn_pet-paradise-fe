@@ -65,9 +65,9 @@ function ProductList(props) {
           </span>
         )} sorter={(a, b) => a.price - b.price}></Column>
         <Column title="Ngày tạo" key="create_date" dataIndex="create_date" sorter={(a, b) => new Date(a.create_date) - new Date(b.create_date)} render={(createDate) => formatDate(createDate)}></Column>
-        <Column title="Số lượng" key="quantityInStock" dataIndex="quantity_in_stock"></Column>
-        <Column title="Giảm giá" key="discount" dataIndex="discount"></Column>
-
+        <Column title="Số lượng" key="quantityInStock" dataIndex="quantityInStock"></Column>
+        <Column title="Giảm giá" key="promotion" dataIndex="promotion" render={(promotion) => promotion && promotion.discount*100 +"%"}></Column>
+        <Column title="Danh mục" key="category" dataIndex="category" render={(category) => category && category.name}></Column>
         <Column
           title="Hành động"
           key="action"

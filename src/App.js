@@ -16,6 +16,8 @@ import ListProducts from "./components/products/ListProducts";
 import ListUsers from "./components/users/ListUsers";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Payment from "./pages/Payment/Payment";
+import ListPromotions from "./components/promotions/ListPromotions";
 function App() {
   return (
     <Provider store={store()}>
@@ -28,6 +30,7 @@ function App() {
             <Route path="/admin/products/list" element={<ListProducts />} />
             <Route path="/admin/products/list" element={<ListProducts />} />
             <Route path="/admin/users/list" element={<ListUsers />} />
+            <Route path="/admin/promotions/list" element={<ListPromotions />} />
           </Route>
           <Route path="/product" element={<Product />} key="all"/>
           <Route path="/product/category" element={<Product />} key="category" />
@@ -35,6 +38,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

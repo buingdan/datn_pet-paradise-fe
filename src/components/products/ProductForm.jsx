@@ -1,4 +1,4 @@
-import { Divider, Form, Input, Modal, Upload } from "antd";
+import { Divider, Form, Input, Modal, Select, Upload } from "antd";
 import React, { createRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import ProductService from "../../services/productService";
 import { toast } from "react-toastify";
+import { Option } from "antd/es/mentions";
 
 function ProductForm(props) {
   const { open, onCancel } = props;
@@ -39,10 +40,10 @@ function ProductForm(props) {
     }
   };
 
-  let tittle = "Tạo mới danh mục sản phẩm";
+  let tittle = "Tạo mới sản phẩm";
   let okText = "Thêm";
   if (product.id) {
-    tittle = "Chỉnh sửa danh mục sản phẩm";
+    tittle = "Chỉnh sửa sản phẩm";
     okText = "Sửa";
   }
 
@@ -126,12 +127,12 @@ function ProductForm(props) {
                     {
                       required: true,
                       min: 2,
-                      message: "Please input the title of collection!",
+                      message: "Vui lòng nhập tên sản phẩm!",
                     },
                   ]
             }
           >
-            <Input />
+            <Input style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}/>
           </Form.Item>
           <Form.Item
             name="price"
@@ -144,78 +145,80 @@ function ProductForm(props) {
                     {
                       required: true,
                       min: 1,
-                      message: "Please input the title of collection!",
+                      message: "Vui lòng nhập giá sản phẩm!",
                     },
                   ]
             }
           >
-            <Input />
+            <Input style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}/>
           </Form.Item>
           <Form.Item
             name="quantityInStock"
             label="Số lượng"
-            initialValue={product.quantity_in_stock}
+            initialValue={product.quantityInStock}
             rules={
               product.id
                 ? []
                 : [
                     {
                       required: true,
-                      message: "Please input the title of collection!",
+                      message: "Vui lòng nhập số lượng!",
                     },
                   ]
             }
           >
-            <Input />
+            <Input style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}/>
           </Form.Item>
           <Form.Item
-            name="discount"
-            label="Giảm giá"
-            initialValue={product.discount}
+            name="promotion"
+            label="Khuyến mãi"
+            initialValue={product.id ? product.promotion.name : "Chọn khuyến mãi"}
             rules={
               product.id
                 ? []
                 : [
                     {
                       required: true,
-                      message: "Please input the title of collection!",
+                      message: "Vui lòng nhập khuyến mãi!",
                     },
                   ]
             }
           >
-            <Input />
+            <Select style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}>
+              <Option value="3">KM30</Option>
+              <Option value="4">KM40</Option>
+              <Option value="5">KM50</Option>
+            </Select>
           </Form.Item>
-          {/* <Form.Item
-            name="voteAverage"
-            label="Đánh giá"
-            initialValue={product.voteAverage}
-            rules={
-              product.id
-                ? []
-                : [
-                    {
-                      required: true,
-                      min: 2,
-                      message: "Please input the title of collection!",
-                    },
-                  ]
-            }
+          <Form.Item
+            name="category"
+            label="Danh mục"
+            initialValue={product.id ? product.category.name : "Chọn danh mục"}
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn danh mục!",
+              },
+            ]}
+            
           >
-            <Input />
-          </Form.Item> */}
+            <Select style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}>
+              <Option value="1">Mèo</Option>
+              <Option value="2">Chó</Option>
+              <Option value="3">Phụ kiện</Option>
+            </Select>
+          </Form.Item>
           <Form.Item
             name="imgFile"
             label="Ảnh"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            // initialValue={product.id ? {fileList} : []}
-            // initialValue={product.id ? `${ProductService.getProductLogoUrl(product.image)}` : ""}
           >
             <Upload
               listType="picture-card"
               accept=".jpg, .png, .gif"
               maxCount={1}
-              initialValue={product.id ? {fileList} : [] }
+              initialValue={product.id ? { fileList } : []}
               beforeUpload={() => false}
             >
               <div>

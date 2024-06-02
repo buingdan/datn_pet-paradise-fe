@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setError, setMessage } from "../../redux/actions/commonAction";
 import { clearAuthState } from "../../redux/actions/authAction";
 import { toast } from "react-toastify";
+import { FaPercentage } from "react-icons/fa";
 const { Header, Sider, Content } = Layout;
 
 function DashboardPage() {
@@ -119,6 +120,12 @@ function DashboardPage() {
               icon: <MdOutlineSupervisorAccount />,
               label: "Tài khoản",
               onClick: () => navigate("/admin/users/list"),
+            },
+            {
+              key: "5",
+              icon: <FaPercentage />,
+              label: "Khuyến mãi",
+              onClick: () => navigate("/admin/promotions/list"),
             },
             // {
             //   key: "5",

@@ -13,7 +13,11 @@ import {
   getProductsByName,
 } from "../../../redux/actions/productAction";
 import { updateUser } from "../../../redux/actions/userActions";
-import { getItemsCart, removeToCart, updateQuantityCart } from "../../../redux/actions/cartAction";
+import {
+  getItemsCart,
+  removeToCart,
+  updateQuantityCart,
+} from "../../../redux/actions/cartAction";
 import ProductService from "../../../services/productService";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -39,9 +43,9 @@ function Header({ email }) {
   };
   const handleLogout = () => {
     dispatch(clearAuthState());
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("refreshToken");
   };
   const navigate = useNavigate();
   const handleMenuItemClick = async (query) => {
@@ -94,20 +98,20 @@ function Header({ email }) {
     const quantity = carts.reduce((acc, cart) => acc + cart.quantity, 0);
     setTotalQuantity(quantity);
   }, [carts]);
-  const handleDeleteCartModal = (cartId) => {
-    dispatch(removeToCart(cartId));
-    toast.success(message)
+  const handleDeleteCartModal = async (cartId) => {
+    await dispatch(removeToCart(cartId));
+    toast.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
   };
   const handleUpdateQuantity = async (cartId, quantity) => {
     try {
-        await dispatch(updateQuantityCart(cartId, quantity));
-        dispatch(getItemsCart(auth.user.id));
-        toast.success("Số lượng trong giỏ hàng đã được cập nhật!");
+      await dispatch(updateQuantityCart(cartId, quantity));
+      dispatch(getItemsCart(auth.user.id));
+      toast.success("Số lượng trong giỏ hàng đã được cập nhật!");
     } catch (error) {
-        console.log("Error", error);
-        toast.error(error);
+      console.log("Error", error);
+      toast.error(error);
     }
-};
+  };
 
   return (
     <header id="header">
@@ -262,21 +266,50 @@ function Header({ email }) {
               }}
             >
               <Form.Item label="Tên tài khoản" name="username">
-                <Input />
+                <Input
+                  style={{
+                    width: "300px",
+                    border: "1px solid rgb(238, 221, 186)",
+                  }}
+                />
               </Form.Item>
               <Form.Item label="Tên đầy đủ" name="fullName">
-                <Input />
+                <Input
+                  style={{
+                    width: "300px",
+                    border: "1px solid rgb(238, 221, 186)",
+                    marginLeft: "15px",
+                  }}
+                />
               </Form.Item>
               <Form.Item label="Email" name="email">
-                <Input />
+                <Input
+                  style={{
+                    width: "300px",
+                    border: "1px solid rgb(238, 221, 186)",
+                    marginLeft: "50px",
+                  }}
+                />
               </Form.Item>
               <Form.Item label="Địa chỉ" name="address">
-                <Input />
+                <Input
+                  style={{
+                    width: "300px",
+                    border: "1px solid rgb(238, 221, 186)",
+                    marginLeft: "42px",
+                  }}
+                />
               </Form.Item>
               <Form.Item label="Số điện thoại" name="phoneNumber">
-                <Input />
+                <Input
+                  style={{
+                    width: "300px",
+                    border: "1px solid rgb(238, 221, 186)",
+                    marginLeft: "4px",
+                  }}
+                />
               </Form.Item>
-              <Form.Item>
+              <Form.Item style={{ marginLeft: "290px" }}>
                 <Button
                   type="primary"
                   htmlType="submit"
@@ -298,7 +331,11 @@ function Header({ email }) {
               <div
                 key={index}
                 className="cart-item"
-                style={{ display: "flex", alignItems:"center", justifyContent:"space-between" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
               >
                 <div className="cart-item-image">
                   <img
@@ -317,11 +354,34 @@ function Header({ email }) {
                     }}
                   />
                 </div>
-                <div className="cart-item-details" style={{width:"200px"}}>
+                <div className="cart-item-details" style={{ width: "200px" }}>
                   <h2>{cartItem.product.name}</h2>
+                  {cartItem.product.promotion?.id ?
+                  <p>Giá: {(cartItem.product.price-cartItem.product.price *cartItem.product.promotion?.discount).toLocaleString()} VNĐ</p>
+                  :
                   <p>Giá: {cartItem.product.price.toLocaleString()} VNĐ</p>
-                  <p>Số lượng:{" "}<input type="number" value={cartItem.quantity} min="1" style={{ width: "45px",height:"35px",paddingLeft: "12px", border: "1px solid #eeddba", borderRadius: "2px",
-                  fontSize:"16px", outline: "none", transition:" border-color 0.3s ease" }} onChange={(e) => handleUpdateQuantity(cartItem.id, e.target.value)}/></p>
+                  }
+                  <p>
+                    Số lượng:{" "}
+                    <input
+                      type="number"
+                      value={cartItem.quantity}
+                      min="1"
+                      style={{
+                        width: "45px",
+                        height: "35px",
+                        paddingLeft: "12px",
+                        border: "1px solid #eeddba",
+                        borderRadius: "2px",
+                        fontSize: "16px",
+                        outline: "none",
+                        transition: " border-color 0.3s ease",
+                      }}
+                      onChange={(e) =>
+                        handleUpdateQuantity(cartItem.id, e.target.value)
+                      }
+                    />
+                  </p>
                 </div>
                 <Button
                   key={cartItem.id}
@@ -337,7 +397,13 @@ function Header({ email }) {
             ))}
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
               <h3>Thành tiền: {totalPrice.toLocaleString()}đ</h3>{" "}
-              <Button type="primary" htmlType="submit" style={{backgroundColor:"#0bbdcc"}}>Đặt hàng</Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ backgroundColor: "#0bbdcc" }}
+              >
+                Đặt hàng
+              </Button>
             </div>
           </Modal>
         </div>
