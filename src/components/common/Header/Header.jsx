@@ -397,13 +397,18 @@ function Header({ email }) {
             ))}
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
               <h3>Thành tiền: {totalPrice.toLocaleString()}đ</h3>{" "}
-              <Button
+              <Link to={"/payment"}
                 type="primary"
                 htmlType="submit"
-                style={{ backgroundColor: "#0bbdcc" }}
+                style={{ backgroundColor: "#0bbdcc", color: "#fff",
+                boxShadow: "0 2px 0 rgba(5, 145, 255, 0.1)",
+                fontSize: "14px",
+                height: "32px",
+                padding: "4px 15px",
+                borderRadius: "6px" }}
               >
                 Đặt hàng
-              </Button>
+              </Link>
             </div>
           </Modal>
         </div>

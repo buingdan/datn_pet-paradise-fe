@@ -14,10 +14,12 @@ import AddOrEditCategory from "./components/categories/AddOrEditCategory";
 import ListCategory from "./components/categories/ListCategory";
 import ListProducts from "./components/products/ListProducts";
 import ListUsers from "./components/users/ListUsers";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Payment from "./pages/Payment/Payment";
 import ListPromotions from "./components/promotions/ListPromotions";
+import ListOrders from "./components/orders/ListOrders";
+import Dashboard from "./components/dashboard/Dashboard";
 function App() {
   return (
     <Provider store={store()}>
@@ -31,6 +33,8 @@ function App() {
             <Route path="/admin/products/list" element={<ListProducts />} />
             <Route path="/admin/users/list" element={<ListUsers />} />
             <Route path="/admin/promotions/list" element={<ListPromotions />} />
+            <Route path="/admin/orders/list" element={<ListOrders />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
           </Route>
           <Route path="/product" element={<Product />} key="all"/>
           <Route path="/product/category" element={<Product />} key="category" />

@@ -172,19 +172,10 @@ function ProductForm(props) {
           <Form.Item
             name="promotion"
             label="Khuyến mãi"
-            initialValue={product.id ? product.promotion.name : "Chọn khuyến mãi"}
-            rules={
-              product.id
-                ? []
-                : [
-                    {
-                      required: true,
-                      message: "Vui lòng nhập khuyến mãi!",
-                    },
-                  ]
-            }
+            initialValue={"Chọn khuyến mãi"}
           >
             <Select style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}>
+              <Option value="">Không khuyến mãi</Option>
               <Option value="3">KM30</Option>
               <Option value="4">KM40</Option>
               <Option value="5">KM50</Option>

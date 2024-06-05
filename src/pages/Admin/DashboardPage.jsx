@@ -17,7 +17,7 @@ import {
   MdOutlineSupervisorAccount,
   MdLogout,
 } from "react-icons/md";
-import logo from "../../assets/img/logo.png"
+import logo from "../../assets/img/logo.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setError, setMessage } from "../../redux/actions/commonAction";
@@ -55,7 +55,7 @@ function DashboardPage() {
   }, [msg, err]);
   useEffect(() => {
     const loginSuccess = localStorage.getItem("loginSuccess");
-  
+
     if (loginSuccess === "true") {
       localStorage.removeItem("loginSuccess");
       toast.success("Đăng nhập thành công!");
@@ -76,20 +76,29 @@ function DashboardPage() {
           bottom: 0,
         }}
       >
-        <div className="logo" style={{marginLeft: "18px"}}>
-          <h2>{collapsed ? "LG" : <Link to="/"><img src={logo} alt="logo"></img></Link>}</h2>
+        <div className="logo" style={{ marginLeft: "18px" }}>
+          <h2>
+            {collapsed ? (
+              "LG"
+            ) : (
+              <Link to="/">
+                <img src={logo} alt="logo"></img>
+              </Link>
+            )}
+          </h2>
         </div>
 
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["2"]}
+          defaultSelectedKeys={["1"]}
           items={[
-            // {
-            //   key: "1",
-            //   icon: <MdInsertChartOutlined />,
-            //   label: "Thống kê",
-            // },
+            {
+              key: "1",
+              icon: <MdInsertChartOutlined />,
+              label: "Thống kê",
+              onClick: () => navigate("/admin/dashboard"),
+            },
             {
               key: "2",
               icon: <MdInventory2 />,
@@ -127,27 +136,36 @@ function DashboardPage() {
               label: "Khuyến mãi",
               onClick: () => navigate("/admin/promotions/list"),
             },
+            {
+              key: "6",
+              icon: <MdShoppingBag />,
+              label: "Đặt hàng",
+              onClick: () => navigate("/admin/orders/list"),
+            },
             // {
             //   key: "5",
             //   icon: <MdInventory2 />,
             //   label: "Hóa đơn",
             // },
-            
+
             // {
             //   key: "7",
             //   icon: <MdManageAccounts />,
             //   label: "Hồ sơ",
             // },
             // {
-            //   key: "8",
-            //   icon: <MdShoppingBag />,
-            //   label: "Đặt hàng",
-            // },
+
             {
               key: "9",
               icon: <MdLogout />,
               label: "Đăng xuất",
-              onClick: ()=> {dispatch(clearAuthState()); navigate("/login"); localStorage.removeItem('accessToken'); localStorage.removeItem('userInfo');localStorage.removeItem('refreshToken');}
+              onClick: () => {
+                dispatch(clearAuthState());
+                navigate("/login");
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("userInfo");
+                localStorage.removeItem("refreshToken");
+              },
             },
           ]}
         />
@@ -182,7 +200,8 @@ function DashboardPage() {
               />
             </Col>
             <Col md={4}>
-              <Avatar size="default" icon={<UserOutlined />}></Avatar><span>{email}</span>
+              <Avatar size="default" icon={<UserOutlined />}></Avatar>
+              <span>{email}</span>
             </Col>
           </Row>
         </Header>
@@ -196,7 +215,7 @@ function DashboardPage() {
           }}
         >
           <div className="content-panel">
-            <Outlet/>
+            <Outlet />
           </div>
         </Content>
       </Layout>

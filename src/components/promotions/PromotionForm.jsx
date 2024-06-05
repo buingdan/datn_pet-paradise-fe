@@ -6,9 +6,17 @@ import { PlusOutlined } from "@ant-design/icons";
 import PromotionService from "../../services/promotionService";
 import { toast } from "react-toastify";
 import { Option } from "antd/es/mentions";
-import { clearPromotion, getPromotion, getPromotionsByPromotionName, insertPromotion, updatePromotion } from "../../redux/actions/promotionAction";
+import dayjs from 'dayjs';
+import {
+  clearPromotion,
+  getPromotion,
+  getPromotionsByPromotionName,
+  insertPromotion,
+  updatePromotion,
+} from "../../redux/actions/promotionAction";
 import moment from "moment";
-
+const formatter = (value) => `${value}`;
+const dateFormat = "YYYY/MM/DD";
 function PromotionForm(props) {
   const { open, onCancel } = props;
   const dispatch = useDispatch();
@@ -21,8 +29,8 @@ function PromotionForm(props) {
     console.log(">>>check values", promotion);
     const formattedValues = {
       ...values,
-      startDate: values.startDate.format('YYYY-MM-DD'),
-      endDate: values.endDate.format('YYYY-MM-DD'),
+      startDate: values.startDate.format("YYYY-MM-DD"),
+      endDate: values.endDate.format("YYYY-MM-DD"),
     };
     if (!promotion.id) {
       dispatch(insertPromotion(formattedValues, navigate)).then(() => {
@@ -30,10 +38,12 @@ function PromotionForm(props) {
         onCancel();
       });
     } else {
-      dispatch(updatePromotion(promotion.id, formattedValues, navigate)).then(() => {
-        dispatch(getPromotionsByPromotionName());
-        onCancel();
-      });
+      dispatch(updatePromotion(promotion.id, formattedValues, navigate)).then(
+        () => {
+          dispatch(getPromotionsByPromotionName());
+          onCancel();
+        }
+      );
     }
   };
 
@@ -52,8 +62,6 @@ function PromotionForm(props) {
       dispatch(clearPromotion());
     };
   }, [id]);
-
-
 
   return (
     <div>
@@ -99,7 +107,7 @@ function PromotionForm(props) {
             label="Mã khuyến mại"
             initialValue={promotion.name}
             rules={
-                promotion.id
+              promotion.id
                 ? []
                 : [
                     {
@@ -110,14 +118,16 @@ function PromotionForm(props) {
                   ]
             }
           >
-            <Input style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}/>
+            <Input
+              style={{ width: "450px", border: "1px solid rgb(238, 221, 186)" }}
+            />
           </Form.Item>
           <Form.Item
             name="discount"
             label="Khuyến mại (nhập từ 0.1 -> 1 tương ứng với 10% -> 100% )"
             initialValue={promotion.discount}
             rules={
-                promotion.id
+              promotion.id
                 ? []
                 : [
                     {
@@ -128,42 +138,54 @@ function PromotionForm(props) {
                   ]
             }
           >
-            <Input style={{width: "450px", border: "1px solid rgb(238, 221, 186)"}}/>
+            <Input
+              style={{ width: "450px", border: "1px solid rgb(238, 221, 186)" }}
+            />
           </Form.Item>
           <Form.Item
-          name="startDate"
-          label="Ngày bắt đầu"
-          initialValue={promotion.startDate ? moment(promotion.startDate) : null}
-          rules={
-            promotion.id
-              ? []
-              : [
-                  {
-                    required: true,
-                    message: "Vui lòng nhập ngày bắt đầu!",
-                  },
-                ]
-          }
-        >
-          <DatePicker style={{ width: "450px", border: "1px solid rgb(238, 221, 186)" }} />
-        </Form.Item>
-        <Form.Item
-          name="endDate"
-          label="Ngày kết thúc"
-          initialValue={promotion.endDate ? moment(promotion.endDate) : null}
-          rules={
-            promotion.id  
-              ? []
-              : [
-                  {
-                    required: true,
-                    message: "Vui lòng nhập ngày kết thúc!",
-                  },
-                ]
-          }
-        >
-          <DatePicker style={{ width: "450px", border: "1px solid rgb(238, 221, 186)" }} />
-      </Form.Item>
+            name="startDate"
+            label="Ngày bắt đầu"
+            initialValue={
+              promotion.startDate ? moment(promotion.startDate) : null
+            }
+            rules={
+              promotion.id
+                ? []
+                : [
+                    {
+                      required: true,
+                      message: "Vui lòng nhập ngày bắt đầu!",
+                    },
+                  ]
+            }
+          >
+            <DatePicker
+              defaultValue={dayjs("2023/12/31", dateFormat)}
+              format={dateFormat}
+              style={{ width: "450px", border: "1px solid rgb(238, 221, 186)" }}
+            />
+          </Form.Item>
+          <Form.Item
+            name="endDate"
+            label="Ngày kết thúc"
+            initialValue={promotion.endDate ? moment(promotion.endDate) : null}
+            rules={
+              promotion.id
+                ? []
+                : [
+                    {
+                      required: true,
+                      message: "Vui lòng nhập ngày kết thúc!",
+                    },
+                  ]
+            }
+          >
+            <DatePicker
+              defaultValue={dayjs("2023/12/31", dateFormat)}
+              format={dateFormat}
+              style={{ width: "450px", border: "1px solid rgb(238, 221, 186)" }}
+            />
+          </Form.Item>
           <Divider></Divider>
         </Form>
       </Modal>

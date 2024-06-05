@@ -48,7 +48,7 @@ function Login() {
       ) {
         console.log("roleNames: true:====>", roleNames);
         localStorage.setItem("loginSuccess", "true");
-        navigate("/admin/products/list");
+        navigate("/admin/dashboard");
       } else if (roleNames.includes("ROLE_USER")) {
         console.log("roleNames: false:====>", roleNames);
         localStorage.setItem("loginSuccess", "true");
